@@ -1,5 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
+import App from "./App"
 
 const mountNode = document.getElementById("app")
-ReactDOM.hydrate(<p> Hello world</p>, mountNode)
+ReactDOM.hydrate(<App />, mountNode)

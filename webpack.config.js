@@ -38,8 +38,8 @@ module.exports = ({ isProd }) => {
     },
     output: {
       path: `${__dirname}/dist`,
-      filename: "[name].[hash].js",
-      publicPath: "https://antsago.github.io/MPDF",
+      filename: "[name].[fullhash].js",
+      publicPath: "/",
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -52,12 +52,25 @@ module.exports = ({ isProd }) => {
     ...base,
     mode: "production",
     devtool: "source-map",
+
+    output: {
+      ...base.output,
+      publicPath: "https://antsago.github.io/MPDF",
+    }
   }
 
   const devConfig = {
     ...base,
     mode: "development",
     devtool: "inline-source-map",
+    watchOptions: {
+      ignored: '/node_modules/',
+    },
+    devServer: {
+      static: './dist',
+      hot: true,
+      open: true,
+    },
   }
 
   return isProd ? prodConfig : devConfig
