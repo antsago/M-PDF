@@ -39,7 +39,7 @@ module.exports = ({ isProd }) => {
     output: {
       path: `${__dirname}/dist`,
       filename: "[name].[hash].js",
-      publicPath: "/",
+      publicPath: "https://antsago.github.io/MPDF",
     },
     plugins: [
       new HtmlWebpackPlugin({
