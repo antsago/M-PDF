@@ -1,8 +1,7 @@
-import { Configuration } from "webpack"
-import HtmlWebpackPlugin from "html-webpack-plugin"
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 
-const config = ({ isProd }: Record<"isProd", boolean>): Configuration => {
-  const base: Configuration = {
+module.exports = ({ isProd }) => {
+  const base = {
     name: "page",
     target: "web",
     entry: {
@@ -25,7 +24,7 @@ const config = ({ isProd }: Record<"isProd", boolean>): Configuration => {
             {
               loader: "ts-loader",
               options: {
-                configFile: "tsconfig.page.json",
+                configFile: "tsconfig.json",
               },
             },
           ],
@@ -35,7 +34,7 @@ const config = ({ isProd }: Record<"isProd", boolean>): Configuration => {
     },
     resolve: {
       extensions: [".tsx", ".ts", ".js"],
-      modules: ["src", "node_modules"],
+      modules: ["./src", "node_modules"],
     },
     output: {
       path: `${__dirname}/dist`,
@@ -49,13 +48,13 @@ const config = ({ isProd }: Record<"isProd", boolean>): Configuration => {
     ],
   }
 
-  const prodConfig: Configuration = {
+  const prodConfig = {
     ...base,
     mode: "production",
     devtool: "source-map",
   }
 
-  const devConfig: Configuration = {
+  const devConfig = {
     ...base,
     mode: "development",
     devtool: "inline-source-map",
@@ -63,5 +62,3 @@ const config = ({ isProd }: Record<"isProd", boolean>): Configuration => {
 
   return isProd ? prodConfig : devConfig
 }
-
-export default config
