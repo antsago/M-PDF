@@ -3,4 +3,4 @@ import ReactDOM from "react-dom"
 import App from "./App"
 
 const mountNode = document.getElementById("app")
-ReactDOM.hydrate(<App />, mountNode)
+ReactDOM.render(<App />, mountNode)
