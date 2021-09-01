@@ -1,10 +1,9 @@
 import React, { useCallback, useState } from "react"
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 import {useDropzone} from 'react-dropzone'
+import PDF from './PDF'
 
 const App = () => {
   const [pdfFile, setPdfFile] = useState(null)
-  const [pages, setPages] = useState([])
 
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
@@ -22,10 +21,6 @@ const App = () => {
 
   const {getRootProps, getInputProps} = useDropzone({onDrop})
 
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setPages(Array.from({ length: numPages }, (v, i) => i + 1));
-  }
-
   return (
     <div>
       <div {...getRootProps()}>
@@ -34,15 +29,7 @@ const App = () => {
       </div>
 
       <h1>Original pdf</h1>
-      <Document
-        file={pdfFile}
-        onLoadError={(error) => console.log(error)}
-        onLoadSuccess={onDocumentLoadSuccess}
-        >
-        {pdfFile && pages?.map((page) => (
-          <Page pageNumber={page} key={page} />
-          ))}
-      </Document>
+      <PDF file={pdfFile} />
     </div>
   )
 }
