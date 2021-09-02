@@ -60,7 +60,7 @@ module.exports = ({ isProd }) => {
 
     output: {
       ...base.output,
-      publicPath: "https://antsago.github.io/MPDF",
+      publicPath: "https://antsago.github.io/M-PDF",
     }
   }
 

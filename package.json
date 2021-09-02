@@ -1,5 +1,5 @@
 {
-  "name": "mpdf",
+  "name": "m-pdf",
   "scripts": {
     "start": "webpack serve --open",
     "build": "webpack --env isProd",
@@ -7,6 +7,8 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "core-js": "^3.16.4",
     "pdf-lib": "^1.16.0",
     "react": "^17.0.2",
