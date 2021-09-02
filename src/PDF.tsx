@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 
-const PDF = ({ file,  }) => {
+const PDF = ({ file }: { file: string|ArrayBuffer }) => {
   const [pages, setPages] = useState([])
 
   const onDocumentLoadSuccess = ({ numPages }) => {

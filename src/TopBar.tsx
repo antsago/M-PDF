@@ -2,14 +2,11 @@ import React from "react"
 import { AppBar, Toolbar, Typography, Button, makeStyles } from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
   title: {
     marginRight: theme.spacing(2),
     flexGrow: 1,
   },
-}));
+}))
 
 const TopBar = () => {
   const classes = useStyles()

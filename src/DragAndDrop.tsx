@@ -1,7 +1,7 @@
 import React, { useCallback } from "react"
 import { useDropzone } from 'react-dropzone'
 
-const DragAndDrop = ({ onLoad }) => {
+const DragAndDrop = ({ onLoad }: { onLoad: (pdf: string | ArrayBuffer) => void}) => {
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader()
