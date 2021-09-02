@@ -1,25 +1,22 @@
-import React, { useCallback } from "react"
-import { useDropzone } from 'react-dropzone'
+import React, { useCallback, PropsWithChildren } from "react"
+import { useDropzone, FileRejection, DropEvent } from 'react-dropzone'
+import { PDFContent } from './Types'
 
-const DragAndDrop = ({ onLoad }: { onLoad: (pdf: string | ArrayBuffer) => void}) => {
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader()
+type Props = PropsWithChildren<{ onLoad: (content: PDFContent, name: string) => void, className: string }>
 
-      reader.onabort = () => console.log('file reading was aborted')
-      reader.onerror = () => console.log('file reading has failed')
-      reader.onload = () => { onLoad(reader.result) }
-      reader.readAsArrayBuffer(file)
-    })
-    
+type OnDrop = (acceptedFiles: File[], fileRejections: FileRejection[], event: DropEvent) => Promise<void>
+
+const DragAndDrop = ({ onLoad, children, className }: Props) => {
+  const onDrop = useCallback<OnDrop>(async (acceptedFiles) => {
+    await Promise.all(acceptedFiles.map(async (file) => onLoad(await file.arrayBuffer(), file.name)))
   }, [])
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop })
 
   return (
-    <div {...getRootProps()}>
+    <div {...getRootProps()} className={className}>
       <input {...getInputProps()} />
-      <p>Drag 'n' drop some files here, or click to select files</p>
+      {children}
     </div>
   )
 }

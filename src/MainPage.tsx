@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState, useCallback } from "react"
+import { v4 as uuid } from "uuid"
 import { PDFDocument } from 'pdf-lib'
 import { makeStyles, Typography } from "@material-ui/core"
+import { PDFContent, PDFFile } from './Types'
 import PDF from './PDF'
 import DragAndDrop from './DragAndDrop'
-import { useCallback } from "react"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const MainPage = () => {
-  const [sources, setSources] = useState<(string|ArrayBuffer)[]>([])
+  const [sources, setSources] = useState<PDFFile[]>([])
   const [destinationPdf, setDestinationPdf] = useState(null)
   const pdfLibDestination = useRef(null)
 
@@ -29,23 +30,27 @@ const MainPage = () => {
 
   const insertPage = async () => {
     const destination = pdfLibDestination.current
-    const source = await PDFDocument.load(sources[0])
+    const source = await PDFDocument.load(sources[0].content)
     const [existingPage] = await destination.copyPages(source, [0])
     destination.insertPage(0, existingPage)
     setDestinationPdf(await destination.saveAsBase64({ dataUri: true }))
   }
 
-  const addSource = useCallback((newSource: string|ArrayBuffer) => setSources((oldSources) => [newSource, ...oldSources]), [])
+  const addSource = useCallback(
+    (content: PDFContent, name: string) => {
+      setSources((oldSources) => [{ id: uuid(), content, name }, ...oldSources])
+    },
+    [],
+  )
 
   return (
     <div className={classes.root}>
-      <div className={classes.sources}>
+      <DragAndDrop onLoad={addSource} className={classes.sources}>
         <Typography>Sources</Typography>
-        <DragAndDrop onLoad={addSource} />
-        {sources?.map((source, i) => (
-          <PDF file={source} key={i} />
+        {sources?.map((source) => (
+          <PDF file={source.content} key={source.id} />
         ))}
-      </div>
+      </DragAndDrop>
       <div>
         <button onClick={insertPage} disabled={!sources || !pdfLibDestination}>Insert page</button>
         <h1>Destination pdf</h1>
