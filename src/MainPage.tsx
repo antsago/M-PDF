@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback, MouseEvent } from "react"
+import React, { useEffect, useRef, useState, useCallback } from "react"
 import { PDFDocument } from 'pdf-lib'
 import { makeStyles, Typography } from "@material-ui/core"
 import { PDFFile, OnInsert } from './Types'
