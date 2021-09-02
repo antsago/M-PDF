@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 type Props = { file: PDFFile, onInsert?: OnInsert }
 
-const PDF = ({ file, onInsert }: Props) => {
+const SourcePDF = ({ file, onInsert }: Props) => {
   const classes = useStyles()
 
   const [pages, setPages] = useState([])
@@ -70,4 +70,4 @@ const PDF = ({ file, onInsert }: Props) => {
   )
 }
 
-export default PDF
+export default SourcePDF

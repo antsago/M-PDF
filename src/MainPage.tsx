@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback, MouseEvent } from "rea
 import { PDFDocument } from 'pdf-lib'
 import { makeStyles, Typography } from "@material-ui/core"
 import { PDFFile, OnInsert } from './Types'
-import PDF from './PDF'
+import SourcePDF from './SourcePDF'
 import DragAndDrop from './DragAndDrop'
 
 const useStyles = makeStyles((theme) => ({
@@ -52,12 +52,12 @@ const MainPage = () => {
       <DragAndDrop onLoad={addSource} className={classes.sources}>
         <Typography>Sources</Typography>
         {sources?.map((source) => (
-          <PDF file={source} key={source.id} onInsert={insertPage} />
+          <SourcePDF file={source} key={source.id} onInsert={insertPage} />
         ))}
       </DragAndDrop>
       <div>
         <h1>Destination pdf</h1>
-        <PDF file={destinationPdf} />
+        <SourcePDF file={destinationPdf} />
       </div>
     </div>
   )
