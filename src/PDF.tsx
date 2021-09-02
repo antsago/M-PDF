@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 
-const PDF = ({ file }) => {
+const PDF = ({ file,  }) => {
   const [pages, setPages] = useState([])
 
   const onDocumentLoadSuccess = ({ numPages }) => {
@@ -20,7 +20,7 @@ const PDF = ({ file }) => {
       >
       {pages?.map((page) => (
         <Page pageNumber={page} key={page} />
-        ))}
+      ))}
     </Document>
   )
 }

@@ -10,6 +10,11 @@ module.exports = ({ isProd }) => {
     module: {
       rules: [
         {
+          test: /\.[t|j]sx?$/,
+          enforce: "pre",
+          use: ["source-map-loader"],
+        },
+        {
           test: /\.tsx?$/,
           use: [
             {
