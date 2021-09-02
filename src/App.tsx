@@ -1,32 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
-import {useDropzone} from 'react-dropzone'
-import PDF from './PDF'
 import { PDFDocument } from 'pdf-lib'
+import PDF from './PDF'
+import DragAndDrop from './DragAndDrop'
 
 const App = () => {
   const [sourcePdf, setSourcePdf] = useState(null)
   const [destinationPdf, setDestinationPdf] = useState(null)
   const pdfLibDestination = useRef(null)
 
+  useCallback(() => { }, [])
   useEffect(() => { (async () => {
     pdfLibDestination.current = await PDFDocument.create()
   })() }, [])
 
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader()
-
-      reader.onabort = () => console.log('file reading was aborted')
-      reader.onerror = () => console.log('file reading has failed')
-      reader.onload = () => {
-        setSourcePdf(reader.result)
-      }
-      reader.readAsArrayBuffer(file)
-    })
-    
-  }, [])
-
-  const { getRootProps, getInputProps } = useDropzone({ onDrop })
   const insertPage = async () => {
     const destination = pdfLibDestination.current
     const source = await PDFDocument.load(sourcePdf)
@@ -37,10 +23,7 @@ const App = () => {
 
   return (
     <div>
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      </div>
+      <DragAndDrop onLoad={setSourcePdf} />
 
       <h1>Original pdf</h1>
       <PDF file={sourcePdf} />
