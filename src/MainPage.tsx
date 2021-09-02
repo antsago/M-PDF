@@ -17,11 +17,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const MainPage = () => {
+  const classes = useStyles()
+  
   const [sources, setSources] = useState<PDFFile[]>([])
   const [destinationPdf, setDestinationPdf] = useState(null)
   const pdfLibDestination = useRef(null)
-
-  const classes = useStyles()
 
   useEffect(() => { (async () => {
     pdfLibDestination.current = await PDFDocument.create()
