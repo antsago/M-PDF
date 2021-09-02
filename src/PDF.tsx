@@ -8,13 +8,17 @@ const PDF = ({ file }) => {
     setPages(Array.from({ length: numPages }, (v, i) => i + 1));
   }
 
+  if (!file) {
+    return null
+  }
+
   return (
     <Document
       file={file}
       onLoadError={(error) => console.log(error)}
       onLoadSuccess={onDocumentLoadSuccess}
       >
-      {file && pages?.map((page) => (
+      {pages?.map((page) => (
         <Page pageNumber={page} key={page} />
         ))}
     </Document>

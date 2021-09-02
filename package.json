@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "core-js": "^3.16.4",
+    "pdf-lib": "^1.16.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.3.4",
