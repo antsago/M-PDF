@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState, useCallback } from "react"
+import React, { useEffect, useRef, useState, useCallback, MouseEvent } from "react"
 import { PDFDocument } from 'pdf-lib'
 import { makeStyles, Typography } from "@material-ui/core"
-import { PDFFile } from './Types'
+import { PDFFile, OnInsert } from './Types'
 import PDF from './PDF'
 import DragAndDrop from './DragAndDrop'
 
@@ -21,20 +21,26 @@ const MainPage = () => {
   const classes = useStyles()
   
   const [sources, setSources] = useState<PDFFile[]>([])
-  const [destinationPdf, setDestinationPdf] = useState(null)
-  const pdfLibDestination = useRef(null)
+  const [destinationPdf, setDestinationPdf] = useState<PDFFile>(null)
+  const pdfLibDestination = useRef<PDFDocument>(null)
 
   useEffect(() => { (async () => {
     pdfLibDestination.current = await PDFDocument.create()
   })() }, [])
 
-  const insertPage = async () => {
+  const insertPage = useCallback<OnInsert>(async (page, sourceFile, e) => {
+    e.stopPropagation()
+
     const destination = pdfLibDestination.current
-    const source = await PDFDocument.load(sources[0].content)
-    const [existingPage] = await destination.copyPages(source, [0])
+    const source = await PDFDocument.load(sourceFile.content)
+    const [existingPage] = await destination.copyPages(source, [page-1])
     destination.insertPage(0, existingPage)
-    setDestinationPdf(await destination.saveAsBase64({ dataUri: true }))
-  }
+    setDestinationPdf({
+      id: "destination",
+      content: await destination.saveAsBase64({ dataUri: true }),
+      name: "destination",
+    })
+  }, [])
 
   const addSource = useCallback(
     (newSource: PDFFile) => setSources((oldSources) => [newSource, ...oldSources]),
@@ -46,11 +52,10 @@ const MainPage = () => {
       <DragAndDrop onLoad={addSource} className={classes.sources}>
         <Typography>Sources</Typography>
         {sources?.map((source) => (
-          <PDF file={source} key={source.id} />
+          <PDF file={source} key={source.id} onInsert={insertPage} />
         ))}
       </DragAndDrop>
       <div>
-        <button onClick={insertPage} disabled={!sources || !pdfLibDestination}>Insert page</button>
         <h1>Destination pdf</h1>
         <PDF file={destinationPdf} />
       </div>

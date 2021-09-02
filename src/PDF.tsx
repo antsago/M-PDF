@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, MouseEvent, useCallback } from "react"
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
-import { makeStyles, Typography } from "@material-ui/core"
-import { PDFFile } from "./Types"
+import { makeStyles, Typography, IconButton } from "@material-ui/core"
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import { PDFFile, OnInsert } from "./Types"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,17 +20,23 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const PDF = ({ file }: { file: PDFFile }) => {
+type Props = { file: PDFFile, onInsert?: OnInsert }
+
+const PDF = ({ file, onInsert }: Props) => {
   const classes = useStyles()
 
   const [pages, setPages] = useState([])
+
+  if (!file) {
+    return null
+  }
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setPages(Array.from({ length: numPages }, (v, i) => i + 1));
   }
 
-  if (!file) {
-    return null
+  const handleInsert = (page) => {
+    return (e) => onInsert(page, file, e)
   }
 
   return (
@@ -42,15 +49,21 @@ const PDF = ({ file }: { file: PDFFile }) => {
         onLoadSuccess={onDocumentLoadSuccess}
       >
         {pages?.map((page) => (
-          <Page
-            key={page}
-            className={classes.page}
-            pageNumber={page}
-            width={100}
-            renderAnnotationLayer={false}
-            renderInteractiveForms={false}
-            renderTextLayer={false}
-          />
+          <div key={page}>
+            <Page
+              className={classes.page}
+              pageNumber={page}
+              width={100}
+              renderAnnotationLayer={false}
+              renderInteractiveForms={false}
+              renderTextLayer={false}
+            />
+            {onInsert && (
+              <IconButton aria-label="insert page" onClick={handleInsert(page)}>
+                <AddBoxIcon />
+              </IconButton>
+            )}
+          </div>
         ))}
       </Document>
     </div>
