@@ -1,14 +1,21 @@
 import React, { useState } from "react"
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
-import { makeStyles } from "@material-ui/core"
+import { makeStyles, Typography } from "@material-ui/core"
 import { PDFFile } from "./Types"
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(1),
+  },
   document: {
-    marginBottom: theme.spacing(2)
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
   },
   page: {
-    marginBottom: theme.spacing(1)
+    margin: theme.spacing(1),
   }
 }))
 
@@ -26,24 +33,27 @@ const PDF = ({ file }: { file: PDFFile }) => {
   }
 
   return (
-    <Document
-      file={file.content}
-      onLoadError={(error) => console.log(error)}
-      onLoadSuccess={onDocumentLoadSuccess}
-      className={classes.document}
-    >
-      {pages?.map((page) => (
-        <Page
-          key={page}
-          className={classes.page}
-          pageNumber={page}
-          width={100}
-          renderAnnotationLayer={false}
-          renderInteractiveForms={false}
-          renderTextLayer={false}
-        />
-      ))}
-    </Document>
+    <div className={classes.root}>
+      <Typography>{file.name}</Typography>
+      <Document
+        className={classes.document}
+        file={file.content}
+        onLoadError={(error) => console.log(error)}
+        onLoadSuccess={onDocumentLoadSuccess}
+      >
+        {pages?.map((page) => (
+          <Page
+            key={page}
+            className={classes.page}
+            pageNumber={page}
+            width={100}
+            renderAnnotationLayer={false}
+            renderInteractiveForms={false}
+            renderTextLayer={false}
+          />
+        ))}
+      </Document>
+    </div>
   )
 }
 

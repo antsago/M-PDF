@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   sources: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    borderRight: `${theme.spacing(1)}px ${theme.palette.primary.main} solid`
   }
 }))
 
