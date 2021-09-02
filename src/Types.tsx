@@ -1,7 +1,5 @@
-export type PDFContent = string|ArrayBuffer
-
 export type PDFFile = {
   id: string,
-  content: PDFContent,
+  content: string|ArrayBuffer,
   name: string
 }

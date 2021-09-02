@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+import { PDFFile } from "./Types"
 
-const PDF = ({ file }: { file: string|ArrayBuffer }) => {
+const PDF = ({ file }: { file: PDFFile }) => {
   const [pages, setPages] = useState([])
 
   const onDocumentLoadSuccess = ({ numPages }) => {
@@ -14,10 +15,10 @@ const PDF = ({ file }: { file: string|ArrayBuffer }) => {
 
   return (
     <Document
-      file={file}
+      file={file.content}
       onLoadError={(error) => console.log(error)}
       onLoadSuccess={onDocumentLoadSuccess}
-      >
+    >
       {pages?.map((page) => (
         <Page pageNumber={page} key={page} />
       ))}

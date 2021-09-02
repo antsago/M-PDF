@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from "react"
-import { v4 as uuid } from "uuid"
 import { PDFDocument } from 'pdf-lib'
 import { makeStyles, Typography } from "@material-ui/core"
-import { PDFContent, PDFFile } from './Types'
+import { PDFFile } from './Types'
 import PDF from './PDF'
 import DragAndDrop from './DragAndDrop'
 
@@ -37,9 +36,7 @@ const MainPage = () => {
   }
 
   const addSource = useCallback(
-    (content: PDFContent, name: string) => {
-      setSources((oldSources) => [{ id: uuid(), content, name }, ...oldSources])
-    },
+    (newSource: PDFFile) => setSources((oldSources) => [newSource, ...oldSources]),
     [],
   )
 
@@ -48,7 +45,7 @@ const MainPage = () => {
       <DragAndDrop onLoad={addSource} className={classes.sources}>
         <Typography>Sources</Typography>
         {sources?.map((source) => (
-          <PDF file={source.content} key={source.id} />
+          <PDF file={source} key={source.id} />
         ))}
       </DragAndDrop>
       <div>
