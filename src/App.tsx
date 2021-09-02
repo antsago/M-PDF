@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react"
 import { PDFDocument } from 'pdf-lib'
-import { AppBar, Toolbar, Typography, Button, CssBaseline, ThemeProvider, createTheme, makeStyles } from "@material-ui/core"
+import { CssBaseline, ThemeProvider, createTheme } from "@material-ui/core"
 import PDF from './PDF'
 import DragAndDrop from './DragAndDrop'
+import TopBar from './TopBar'
 
 const theme = createTheme({
   palette: {
@@ -16,22 +17,10 @@ const theme = createTheme({
   }
 })
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  title: {
-    marginRight: theme.spacing(2),
-    flexGrow: 1,
-  },
-}));
-
 const App = () => {
   const [sourcePdf, setSourcePdf] = useState(null)
   const [destinationPdf, setDestinationPdf] = useState(null)
   const pdfLibDestination = useRef(null)
-
-  const classes = useStyles()
 
   useEffect(() => { (async () => {
     pdfLibDestination.current = await PDFDocument.create()
@@ -48,14 +37,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            M-PDF
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
+      <TopBar />
       <div>
         <DragAndDrop onLoad={setSourcePdf} />
 
