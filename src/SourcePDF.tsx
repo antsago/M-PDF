@@ -4,17 +4,12 @@ import { makeStyles, Typography, IconButton } from "@material-ui/core"
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import { PDFFile, OnInsert } from "./Types"
 import PDFPage from "./PDFPage"
+import Masonry from "./Masonry"
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.spacing(2),
     padding: theme.spacing(1),
-  },
-  document: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
   },
 }))
 
@@ -41,20 +36,21 @@ const SourcePDF = ({ file, onInsert }: Props) => {
     <div className={classes.root}>
       <Typography>{file.name}</Typography>
       <Document
-        className={classes.document}
         file={file.content}
         onLoadError={(error) => console.log(error)}
         onLoadSuccess={onDocumentLoadSuccess}
       >
-        {pages?.map((page) => (
-          <PDFPage key={page} page={page}>
-            {onInsert && (
-              <IconButton aria-label="insert page" onClick={handleInsert(page)}>
-                <AddBoxIcon />
-              </IconButton>
-            )}
-          </PDFPage>
-        ))}
+        <Masonry>
+          {pages?.map((page) => (
+            <PDFPage key={page} page={page}>
+              {onInsert && (
+                <IconButton aria-label="insert page" onClick={handleInsert(page)}>
+                  <AddBoxIcon />
+                </IconButton>
+              )}
+            </PDFPage>
+          ))}
+        </Masonry>
       </Document>
     </div>
   )
