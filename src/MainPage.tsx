@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react"
-import { PDFDocument } from 'pdf-lib'
+import React, { useState, useCallback } from "react"
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, Typography } from "@material-ui/core"
 import { PDFFile, OnInsert } from './Types'
@@ -40,28 +39,11 @@ const MainPage = () => {
 
   const { sources, addSource, getSource } = useSourceManager()
   const [destination, setDestination] = useState<DestinationPage[]>([])
-  
-  // const [destinationPdf, setDestinationPdf] = useState<PDFFile>(null)
-  // const pdfLibDestination = useRef<PDFDocument>(null)
-
-  // useEffect(() => { (async () => {
-  //   pdfLibDestination.current = await PDFDocument.create()
-  // })() }, [])
 
   const insertPage = useCallback<OnInsert>(async (page, sourceFile, e) => {
     e.stopPropagation()
-    setDestination((prevDestination) => [...prevDestination, { sourceId: sources[0].id, sourcePage: 1 }])
-
-    // const destination = pdfLibDestination.current
-    // const source = await PDFDocument.load(sourceFile.content)
-    // const [existingPage] = await destination.copyPages(source, [page-1])
-    // destination.insertPage(0, existingPage)
-    // setDestinationPdf({
-    //   id: "destination",
-    //   content: await destination.saveAsBase64({ dataUri: true }),
-    //   name: "destination",
-    // })
-  }, [sources])
+    setDestination((prevDestination) => [...prevDestination, { sourceId: sourceFile.id, sourcePage: page }])
+  }, [])
 
 
   return (
