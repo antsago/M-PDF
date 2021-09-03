@@ -31,6 +31,7 @@ const App = () => {
 
   const { sources, addSource, getSource } = useSourceManager()
   const [destination, setDestination] = useState<Destination>([])
+
   const onDownload = useCallback(async () => {
     const destinationPdf = await PDFDocument.create()
     await Promise.all(destination.map(async (pageConfig, pageIndex) => {
@@ -38,15 +39,18 @@ const App = () => {
       const [copiedPage] = await destinationPdf.copyPages(sourcePdf, [pageConfig.sourcePage])
       destinationPdf.insertPage(pageIndex, copiedPage)
     }))
-    const win = window.open(await destinationPdf.saveAsBase64({ dataUri: true }))
-    win.focus()
+
+    const linkTag = document.createElement('a')
+    linkTag.href = await destinationPdf.saveAsBase64({ dataUri: true })
+    linkTag.download = "foo.pdf"
+    linkTag.click()
   }, [])
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className={classes.root}>
-        <TopBar onDownload={onDownload}/>
+        <TopBar onDownload={onDownload} />
         <MainPage
           destination={destination}
           setDestination={setDestination}
