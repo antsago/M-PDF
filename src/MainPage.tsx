@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from "react"
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, Typography } from "@material-ui/core"
-import { PDFFile, OnInsert } from './Types'
+import { OnInsert } from './Types'
 import SourcePDF from './SourcePDF'
 import DragAndDrop from './DragAndDrop'
-import { useRef } from "react"
+import useSourceManager from './useSourceManager'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,28 +17,6 @@ const useStyles = makeStyles((theme) => ({
     borderLeft: `${theme.spacing(0.5)}px ${theme.palette.primary.main} solid`,
   }
 }))
-
-const useSourceManager = () => {
-  const [sources, setSources] = useState<PDFFile[]>([])
-  const sourceDictionary = useRef<{ [id: string]: PDFFile }>({})
-
-  const addSource = useCallback(
-    (newSource: PDFFile) => {
-      sourceDictionary.current = {
-        ...sourceDictionary.current,
-        [newSource.id]: newSource,
-      }
-      setSources((oldSources) => [newSource, ...oldSources])
-    },
-    [],
-  )
-  const getSource = useCallback<(string) => PDFFile>(
-    (sourceId) => sourceDictionary.current[sourceId],
-    [],
-  )
-
-  return { sources, addSource, getSource }
-}
 
 type DestinationPage = { sourceId: string, sourcePage: number }
 
