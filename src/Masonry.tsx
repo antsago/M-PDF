@@ -1,12 +1,13 @@
 import React, { PropsWithChildren } from "react"
 import { makeStyles } from "@material-ui/core"
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "center",
+    justifyContent: "left",
+    padding: theme.spacing(3),
   },
 }))
 

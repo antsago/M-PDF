@@ -6,6 +6,7 @@ import SourcePDF from './SourcePDF'
 import DragAndDrop from './DragAndDrop'
 import useSourceManager from './useSourceManager'
 import PDFPage from "./PDFPage"
+import Masonry from "./Masonry"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,16 +44,18 @@ const MainPage = () => {
       </DragAndDrop>
       <div className={classes.sources}>
         <Typography>Destination</Typography>
-        {destination?.map((destinationPage, pageIndex) => (
-          <Document
-            key={pageIndex}
-            file={getSource(destinationPage.sourceId).content}
-            onLoadError={(error) => console.log(error)}
-            onLoadSuccess={() => { /* Do nothing */ }}
-          >
-            <PDFPage page={destinationPage.sourcePage} />
-          </Document>
-        ))}
+        <Masonry>
+          {destination?.map((destinationPage, pageIndex) => (
+            <Document
+              key={pageIndex}
+              file={getSource(destinationPage.sourceId).content}
+              onLoadError={(error) => console.log(error)}
+              onLoadSuccess={() => { /* Do nothing */ }}
+            >
+              <PDFPage page={destinationPage.sourcePage} />
+            </Document>
+          ))}
+        </Masonry>
       </div>
     </div>
   )
