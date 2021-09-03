@@ -1,10 +1,9 @@
-import React, { useState, useCallback } from "react"
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+import React, { useCallback, Dispatch, SetStateAction } from "react"
+import { Document } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, Typography } from "@material-ui/core"
-import { OnInsert } from './Types'
+import { OnInsert, Destination } from './Types'
 import SourcePDF from './SourcePDF'
 import DragAndDrop from './DragAndDrop'
-import useSourceManager from './useSourceManager'
 import PDFPage from "./PDFPage"
 import Masonry from "./Masonry"
 
@@ -20,13 +19,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-type DestinationPage = { sourceId: string, sourcePage: number }
+type Props = { destination: Destination, setDestination: Dispatch<SetStateAction<Destination>>, sources, addSource, getSource }
 
-const MainPage = () => {
+const MainPage = ({ destination, setDestination, sources, addSource, getSource }: Props) => {
   const classes = useStyles()
-
-  const { sources, addSource, getSource } = useSourceManager()
-  const [destination, setDestination] = useState<DestinationPage[]>([])
 
   const insertPage = useCallback<OnInsert>(async (page, sourceFile, e) => {
     e.stopPropagation()

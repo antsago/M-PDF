@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const TopBar = () => {
+const TopBar = ({ onDownload }: { onDownload: () => void }) => {
   const classes = useStyles()
 
   return (
@@ -17,7 +17,7 @@ const TopBar = () => {
         <Typography variant="h6" className={classes.title}>
           M-PDF
         </Typography>
-        <Button color="inherit">Login</Button>
+        <Button onClick={onDownload}>Download</Button>
       </Toolbar>
     </AppBar>
   )
