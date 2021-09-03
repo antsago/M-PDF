@@ -1,8 +1,9 @@
 import React, { useState } from "react"
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack'
+import { Document } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, Typography, IconButton } from "@material-ui/core"
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import { PDFFile, OnInsert } from "./Types"
+import PDFPage from "./PDFPage"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,9 +16,6 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: "wrap",
     justifyContent: "center",
   },
-  page: {
-    margin: theme.spacing(1),
-  }
 }))
 
 type Props = { file: PDFFile, onInsert?: OnInsert }
@@ -49,21 +47,13 @@ const SourcePDF = ({ file, onInsert }: Props) => {
         onLoadSuccess={onDocumentLoadSuccess}
       >
         {pages?.map((page) => (
-          <div key={page}>
-            <Page
-              className={classes.page}
-              pageNumber={page}
-              width={100}
-              renderAnnotationLayer={false}
-              renderInteractiveForms={false}
-              renderTextLayer={false}
-            />
+          <PDFPage key={page} page={page}>
             {onInsert && (
               <IconButton aria-label="insert page" onClick={handleInsert(page)}>
                 <AddBoxIcon />
               </IconButton>
             )}
-          </div>
+          </PDFPage>
         ))}
       </Document>
     </div>

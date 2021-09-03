@@ -5,6 +5,7 @@ import { OnInsert } from './Types'
 import SourcePDF from './SourcePDF'
 import DragAndDrop from './DragAndDrop'
 import useSourceManager from './useSourceManager'
+import PDFPage from "./PDFPage"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,13 +50,7 @@ const MainPage = () => {
             onLoadError={(error) => console.log(error)}
             onLoadSuccess={() => { /* Do nothing */ }}
           >
-            <Page
-              pageNumber={destinationPage.sourcePage}
-              width={100}
-              renderAnnotationLayer={false}
-              renderInteractiveForms={false}
-              renderTextLayer={false}
-            />
+            <PDFPage page={destinationPage.sourcePage} />
           </Document>
         ))}
       </div>
