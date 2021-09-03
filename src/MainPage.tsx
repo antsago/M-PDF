@@ -4,6 +4,7 @@ import { makeStyles, Typography } from "@material-ui/core"
 import { PDFFile, OnInsert } from './Types'
 import SourcePDF from './SourcePDF'
 import DragAndDrop from './DragAndDrop'
+import { useRef } from "react"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,14 +20,21 @@ const useStyles = makeStyles((theme) => ({
 
 const useSourceManager = () => {
   const [sources, setSources] = useState<PDFFile[]>([])
+  const sourceDictionary = useRef<{ [id: string]: PDFFile }>({})
 
   const addSource = useCallback(
-    (newSource: PDFFile) => setSources((oldSources) => [newSource, ...oldSources]),
+    (newSource: PDFFile) => {
+      sourceDictionary.current = {
+        ...sourceDictionary.current,
+        [newSource.id]: newSource,
+      }
+      setSources((oldSources) => [newSource, ...oldSources])
+    },
     [],
   )
   const getSource = useCallback<(string) => PDFFile>(
-    (id) => sources.find(source => source.id === id),
-    [sources],
+    (sourceId) => sourceDictionary.current[sourceId],
+    [],
   )
 
   return { sources, addSource, getSource }
