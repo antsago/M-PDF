@@ -1,10 +1,8 @@
 import React from "react"
-import { Document } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, Typography } from "@material-ui/core"
 import SourcePDF from './SourcePDF'
 import DragAndDrop from './DragAndDrop'
-import PDFPage from "./PDFPage"
-import Masonry from "./Masonry"
+import Destination from "./Destination"
 import { usePdfManager } from "PDFManager"
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MainPage = () => {
   const classes = useStyles()
-  const { insertPage, destination, sources, addSource, getSource } = usePdfManager()
+  const { insertPage, sources, addSource } = usePdfManager()
 
   return (
     <div className={classes.root}>
@@ -33,18 +31,7 @@ const MainPage = () => {
       </DragAndDrop>
       <div className={classes.sources}>
         <Typography>Destination</Typography>
-        <Masonry>
-          {destination?.map((destinationPage, pageIndex) => (
-            <Document
-              key={pageIndex}
-              file={getSource(destinationPage.sourceId).content}
-              onLoadError={(error) => console.log(error)}
-              onLoadSuccess={() => { /* Do nothing */ }}
-            >
-              <PDFPage page={destinationPage.sourcePage} />
-            </Document>
-          ))}
-        </Masonry>
+        <Destination />
       </div>
     </div>
   )

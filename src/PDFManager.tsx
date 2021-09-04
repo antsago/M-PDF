@@ -1,11 +1,22 @@
 import React, { useCallback, useState } from "react"
 import { PDFDocument } from 'pdf-lib'
-import { OnInsert, Destination } from './Types'
+import { OnInsert, Destination, PDFFile } from './Types'
 import useSourceManager from './useSourceManager'
 import { createContext } from "react"
 import { useContext } from "react"
 
-const pdfContext = createContext(null)
+type PDFContext = {
+  sources: PDFFile[],
+  addSource: (newSource: PDFFile) => void,
+  getSource: (sourceId: string) => PDFFile,
+  destination: Destination,
+  downloadDestination: () => Promise<void>,
+  insertPage: OnInsert,
+}
+
+const pdfContext = createContext<PDFContext>(null)
+
+export const usePdfManager = () => useContext(pdfContext)
 
 export const PDFManager = ({ children }) => {
   const { sources, addSource, getSource } = useSourceManager()
@@ -45,5 +56,3 @@ export const PDFManager = ({ children }) => {
     </pdfContext.Provider>
   )
 }
-
-export const usePdfManager = () => useContext(pdfContext)
