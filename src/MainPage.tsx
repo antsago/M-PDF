@@ -9,11 +9,14 @@ const useStyles = makeStyles((theme) => ({
     gridTemplate: "100% / 25% 75%",
     flexGrow: 1,
   },
-  sources: {
+  section: {
     padding: theme.spacing(2),
     "&:not(:last-child)": {
       borderRight: `${theme.spacing(0.5)}px ${theme.palette.secondary.main} solid`,
     }
+  },
+  sectionTitle: {
+    paddingBottom: theme.spacing(1),
   }
 }))
 
@@ -23,14 +26,14 @@ const MainPage = () => {
 
   return (
     <div className={classes.root}>
-      <DragAndDrop onLoad={addSource} className={classes.sources}>
-        <Typography component="h2" variant="h6">Sources</Typography>
+      <DragAndDrop onLoad={addSource} className={classes.section}>
+        <Typography color="secondary" component="h2" variant="h6" className={classes.sectionTitle}>Sources</Typography>
         {sources?.map((source) => (
           <SourcePDF file={source} key={source.id} onInsert={insertPage} />
         ))}
       </DragAndDrop>
-      <div className={classes.sources}>
-        <Typography component="h2" variant="h6">Destination</Typography>
+      <div className={classes.section}>
+        <Typography color="secondary"  component="h2" variant="h6" className={classes.sectionTitle}>Destination</Typography>
         <Destination />
       </div>
     </div>

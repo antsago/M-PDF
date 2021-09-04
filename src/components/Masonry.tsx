@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "left",
-    padding: theme.spacing(3),
+    paddingLeft: theme.spacing(3),
   },
 }))
 
