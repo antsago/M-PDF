@@ -1,7 +1,7 @@
 import React, { useCallback, PropsWithChildren } from "react"
 import { useDropzone, FileRejection, DropEvent } from 'react-dropzone'
 import { v4 as uuid } from "uuid"
-import { PDFFile } from './pdfManager'
+import { PDFFile } from '../pdfManager'
 
 type Props = PropsWithChildren<{ onLoad: (pdfFile: PDFFile) => void, className: string }>
 

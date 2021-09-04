@@ -1,6 +1,6 @@
 import React from "react"
 import { AppBar, Toolbar, Typography, Button, makeStyles } from "@material-ui/core"
-import { usePdfManager } from "./pdfManager"
+import { usePdfManager } from "../pdfManager"
 
 const useStyles = makeStyles((theme) => ({
   title: {

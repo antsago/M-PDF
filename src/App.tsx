@@ -1,7 +1,7 @@
 import React from "react"
 import { CssBaseline, ThemeProvider, createTheme, makeStyles } from "@material-ui/core"
 import MainPage from './MainPage'
-import TopBar from './TopBar'
+import { TopBar } from './components'
 import { Provider } from './pdfManager'
 
 const theme = createTheme({

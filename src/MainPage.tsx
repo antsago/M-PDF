@@ -1,8 +1,6 @@
 import React from "react"
 import { makeStyles, Typography } from "@material-ui/core"
-import SourcePDF from './SourcePDF'
-import DragAndDrop from './DragAndDrop'
-import Destination from "./Destination"
+import { Destination, SourcePDF, DragAndDrop } from "./components"
 import { usePdfManager } from "./pdfManager"
 
 const useStyles = makeStyles((theme) => ({
