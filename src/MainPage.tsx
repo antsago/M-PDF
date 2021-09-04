@@ -11,7 +11,9 @@ const useStyles = makeStyles((theme) => ({
   },
   sources: {
     padding: theme.spacing(2),
-    borderLeft: `${theme.spacing(0.5)}px ${theme.palette.primary.main} solid`,
+    "&:not(:last-child)": {
+      borderRight: `${theme.spacing(0.5)}px ${theme.palette.secondary.main} solid`,
+    }
   }
 }))
 
@@ -22,13 +24,13 @@ const MainPage = () => {
   return (
     <div className={classes.root}>
       <DragAndDrop onLoad={addSource} className={classes.sources}>
-        <Typography>Sources</Typography>
+        <Typography component="h2" variant="h6">Sources</Typography>
         {sources?.map((source) => (
           <SourcePDF file={source} key={source.id} onInsert={insertPage} />
         ))}
       </DragAndDrop>
       <div className={classes.sources}>
-        <Typography>Destination</Typography>
+        <Typography component="h2" variant="h6">Destination</Typography>
         <Destination />
       </div>
     </div>
