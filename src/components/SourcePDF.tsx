@@ -25,7 +25,7 @@ const SourcePDF = ({ file, onInsert }: Props) => {
   }
 
   const onDocumentLoadSuccess = ({ numPages }) => {
-    setPages(Array.from({ length: numPages }, (v, i) => i + 1));
+    setPages(Array.from({ length: numPages }, (v, i) => i));
   }
 
   const handleInsert = (page) => {

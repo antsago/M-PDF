@@ -17,7 +17,7 @@ const PDFPage = ({ page, children }: Props) => {
     <div>
       <Page
         className={classes.page}
-        pageNumber={page}
+        pageNumber={page+1}
         width={100}
         renderAnnotationLayer={false}
         renderInteractiveForms={false}
