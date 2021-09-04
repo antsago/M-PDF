@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Document } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, Typography, IconButton } from "@material-ui/core"
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import { PDFFile, OnInsert } from "../pdfManager"
+import { Source, InsertPage } from "../pdfManager"
 import PDFPage from "./PDFPage"
 import Masonry from "./Masonry"
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-type Props = { file: PDFFile, onInsert?: OnInsert }
+type Props = { file: Source, onInsert?: InsertPage }
 
 const SourcePDF = ({ file, onInsert }: Props) => {
   const classes = useStyles()

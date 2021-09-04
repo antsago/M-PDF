@@ -1,13 +1,13 @@
 import { useState, useCallback } from "react"
-import { PDFFile } from './types'
+import { Source } from './types'
 import { useRef } from "react"
 
 const useSourceManager = () => {
-  const [sources, setSources] = useState<PDFFile[]>([])
-  const sourceDictionary = useRef<{ [id: string]: PDFFile }>({})
+  const [sources, setSources] = useState<Source[]>([])
+  const sourceDictionary = useRef<{ [id: string]: Source }>({})
 
   const addSource = useCallback(
-    (newSource: PDFFile) => {
+    (newSource: Source) => {
       sourceDictionary.current = {
         ...sourceDictionary.current,
         [newSource.id]: newSource,
@@ -16,7 +16,7 @@ const useSourceManager = () => {
     },
     [],
   )
-  const getSource = useCallback<(string) => PDFFile>(
+  const getSource = useCallback<(string) => Source>(
     (sourceId) => sourceDictionary.current[sourceId],
     [],
   )
