@@ -1,11 +1,11 @@
-import React, { useCallback, Dispatch, SetStateAction } from "react"
+import React from "react"
 import { Document } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, Typography } from "@material-ui/core"
-import { OnInsert, Destination } from './Types'
 import SourcePDF from './SourcePDF'
 import DragAndDrop from './DragAndDrop'
 import PDFPage from "./PDFPage"
 import Masonry from "./Masonry"
+import { usePdfManager } from "PDFManager"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,16 +19,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-type Props = { destination: Destination, setDestination: Dispatch<SetStateAction<Destination>>, sources, addSource, getSource }
-
-const MainPage = ({ destination, setDestination, sources, addSource, getSource }: Props) => {
+const MainPage = () => {
   const classes = useStyles()
-
-  const insertPage = useCallback<OnInsert>(async (page, sourceFile, e) => {
-    e.stopPropagation()
-    setDestination((prevDestination) => [...prevDestination, { sourceId: sourceFile.id, sourcePage: page }])
-  }, [])
-
+  const { insertPage, destination, sources, addSource, getSource } = usePdfManager()
 
   return (
     <div className={classes.root}>

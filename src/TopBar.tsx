@@ -1,5 +1,6 @@
 import React from "react"
 import { AppBar, Toolbar, Typography, Button, makeStyles } from "@material-ui/core"
+import { usePdfManager } from "PDFManager"
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -8,8 +9,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const TopBar = ({ onDownload }: { onDownload: () => void }) => {
+const TopBar = () => {
   const classes = useStyles()
+  const { downloadDestination } = usePdfManager() 
 
   return (
     <AppBar position="sticky">
@@ -17,7 +19,7 @@ const TopBar = ({ onDownload }: { onDownload: () => void }) => {
         <Typography variant="h6" className={classes.title}>
           M-PDF
         </Typography>
-        <Button onClick={onDownload}>Download</Button>
+        <Button onClick={downloadDestination}>Download</Button>
       </Toolbar>
     </AppBar>
   )
