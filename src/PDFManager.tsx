@@ -21,9 +21,9 @@ export const PDFManager = ({ children }) => {
 
     const linkTag = document.createElement('a')
     linkTag.href = await destinationPdf.saveAsBase64({ dataUri: true })
-    linkTag.download = "foo.pdf"
+    linkTag.download = "created-with-m-pdf.pdf"
     linkTag.click()
-  }, [])
+  }, [destination])
 
   const insertPage = useCallback<OnInsert>(async (page, sourceFile, e) => {
     e.stopPropagation()
