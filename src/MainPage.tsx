@@ -3,7 +3,7 @@ import { makeStyles, Typography } from "@material-ui/core"
 import SourcePDF from './SourcePDF'
 import DragAndDrop from './DragAndDrop'
 import Destination from "./Destination"
-import { usePdfManager } from "PDFManager"
+import { usePdfManager } from "./pdfManager"
 
 const useStyles = makeStyles((theme) => ({
   root: {

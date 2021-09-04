@@ -2,7 +2,7 @@ import React from "react"
 import { CssBaseline, ThemeProvider, createTheme, makeStyles } from "@material-ui/core"
 import MainPage from './MainPage'
 import TopBar from './TopBar'
-import { PDFManager } from './PDFManager'
+import { Provider } from './pdfManager'
 
 const theme = createTheme({
   palette: {
@@ -28,7 +28,7 @@ const App = () => {
   const classes = useStyles()
 
   return (
-    <PDFManager>
+    <Provider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className={classes.root}>
@@ -36,7 +36,7 @@ const App = () => {
           <MainPage />
         </div>
       </ThemeProvider>
-    </PDFManager>
+    </Provider>
   )
 }
 

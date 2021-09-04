@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react"
-import { PDFFile } from './Types'
+import { PDFFile } from './types'
 import { useRef } from "react"
 
 const useSourceManager = () => {

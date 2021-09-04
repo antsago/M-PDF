@@ -2,7 +2,7 @@ import React from "react"
 import { Document } from 'react-pdf/dist/esm/entry.webpack'
 import PDFPage from "./PDFPage"
 import Masonry from "./Masonry"
-import { usePdfManager } from "PDFManager"
+import { usePdfManager } from "./pdfManager"
 
 const Destination = () => {
   const { destination, getSource } = usePdfManager()
