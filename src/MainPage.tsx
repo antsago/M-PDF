@@ -22,21 +22,21 @@ const useStyles = makeStyles((theme) => ({
 
 const MainPage = () => {
   const classes = useStyles()
-  const { insertPage, sources, addSource } = usePdfManager()
+  const { insertPage, sources, addSource, dropRef } = usePdfManager()
 
   return (
-    <div className={classes.root}>
-      <DragAndDrop onLoad={addSource} className={classes.section}>
+    <DragAndDrop onLoad={addSource} className={classes.root} ref={dropRef}>
+      <div className={classes.section}>
         <Typography color="secondary" component="h2" variant="h6" className={classes.sectionTitle}>Sources</Typography>
         {sources?.map((source) => (
           <SourcePDF file={source} key={source.id} onInsert={insertPage} />
         ))}
-      </DragAndDrop>
+      </div>
       <div className={classes.section}>
         <Typography color="secondary"  component="h2" variant="h6" className={classes.sectionTitle}>Destination</Typography>
         <Destination />
       </div>
-    </div>
+    </DragAndDrop>
   )
 }
 

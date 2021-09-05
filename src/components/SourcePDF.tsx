@@ -26,7 +26,7 @@ const SourcePDF = ({ file, onInsert }: Props) => {
   const onDocumentLoadSuccess = useCallback(({ numPages }) => {
     setPages(Array.from({ length: numPages }, (v, i) => i));
   }, [])
-  const handleInsert = useCallback((page) => (e) => onInsert(page, file, e), [onInsert])
+  const handleInsert = useCallback((page) => () => onInsert(page, file), [onInsert])
   const toggleOpen = useCallback(() => setIsOpen(wasOpen => !wasOpen), [onInsert])
 
   const classes = useStyles(isOpen)

@@ -19,10 +19,11 @@ const useDestinationManager = (getSource) => {
     linkTag.click()
   }, [destination])
 
-  const insertPage = useCallback<InsertPage>(async (page, sourceFile, e) => {
-    e.stopPropagation()
-    setDestination((prevDestination) => [...prevDestination, { sourceId: sourceFile.id, sourcePage: page }])
-  }, [])
+  const insertPage = useCallback<InsertPage>(
+    async (page, sourceFile) =>
+      setDestination((prevDestination) => [...prevDestination, { sourceId: sourceFile.id, sourcePage: page }]),
+    [],
+  )
 
   return {
     destination,

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TopBar = () => {
   const classes = useStyles()
-  const { downloadDestination } = usePdfManager() 
+  const { downloadDestination, triggerUpload } = usePdfManager() 
 
   return (
     <AppBar position="sticky">
@@ -19,6 +19,7 @@ const TopBar = () => {
         <Typography variant="h6" className={classes.title}>
           M-PDF
         </Typography>
+        <Button onClick={triggerUpload}>Upload</Button>
         <Button onClick={downloadDestination}>Download</Button>
       </Toolbar>
     </AppBar>
