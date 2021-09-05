@@ -22,6 +22,7 @@ const DragAndDrop = forwardRef<DropRef, Props>(({ onLoad, children, className },
     onDrop, 
     noClick: true,
     noKeyboard: true,
+    accept: ".pdf",
   })
 
   useImperativeHandle(ref, () => ({ open }))
