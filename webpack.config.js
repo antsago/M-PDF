@@ -36,6 +36,7 @@ module.exports = ({ isProd }) => {
                     before: [
                       transform({
                         overrideIdFn: '[sha512:contenthash:base64:6]',
+                        removeDefaultMessage: true,
                       }),
                     ],
                   }

@@ -1,7 +1,7 @@
 import React from "react"
 import { IntlProvider } from "react-intl"
 import { CssBaseline, ThemeProvider, createTheme, makeStyles } from "@material-ui/core"
-import lang from "../lang"
+import lang from "../i18n"
 import MainPage from './MainPage'
 import { TopBar } from './components'
 import { Provider } from './pdfManager'
@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
 const App = () => {
   const classes = useStyles()
 
-  const locale = "en"
+  const locale = "es"
   const messages = lang[locale]
 
   return (
