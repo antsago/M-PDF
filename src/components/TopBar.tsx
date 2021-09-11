@@ -1,5 +1,6 @@
 import React from "react"
 import { AppBar, Toolbar, Typography, Button, makeStyles } from "@material-ui/core"
+import { FormattedMessage } from "react-intl"
 import { usePdfManager } from "../pdfManager"
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +21,12 @@ const TopBar = () => {
           M-PDF
         </Typography>
         <Button onClick={triggerUpload}>Upload</Button>
-        <Button onClick={downloadDestination}>Download</Button>
+        <Button onClick={downloadDestination}>
+          <FormattedMessage
+            id="myMessage"
+            defaultMessage="Download"
+          />
+        </Button>
       </Toolbar>
     </AppBar>
   )
