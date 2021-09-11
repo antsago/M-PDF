@@ -1,5 +1,6 @@
 import React from "react"
 import { makeStyles, alpha, Typography } from "@material-ui/core"
+import { useIntl } from "react-intl"
 import clsx from "clsx"
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Overlay = ({ isReject, isActive }) => {
   const classes = useStyles()
+  const intl = useIntl()
 
   if (!isActive) {
     return null
@@ -37,7 +39,10 @@ const Overlay = ({ isReject, isActive }) => {
   return (
     <div className={clsx({ [classes.base]: true, [classes.accept]: !isReject, [classes.reject]: isReject })}>
       <Typography component="p" variant="h5" className={classes.message}>
-        {isReject ? "Non-pdf files will be ignored" : "Drop pdf files here to upload them as sources"}
+        {isReject
+          ? intl.formatMessage({ defaultMessage: "Non-pdf files will be ignored" })
+          : intl.formatMessage({ defaultMessage: "Drop pdf files here to upload them as sources" })
+        }
       </Typography>
     </div>
   )

@@ -1,5 +1,20 @@
 {
   "5q3qC0": {
     "defaultMessage": "Descargar"
+  },
+  "BzQPM+": {
+    "defaultMessage": "Destino"
+  },
+  "Pxcfhu": {
+    "defaultMessage": "Se ignorarán archivos que no sean pdfs"
+  },
+  "fhwTpA": {
+    "defaultMessage": "Fuentes"
+  },
+  "p4N05H": {
+    "defaultMessage": "Subir"
+  },
+  "ppUeoo": {
+    "defaultMessage": "Suelta aquí los pdfs para subirlos como fuentes"
   }
 }

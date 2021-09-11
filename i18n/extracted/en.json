@@ -1,5 +1,20 @@
 {
   "5q3qC0": {
     "defaultMessage": "Download"
+  },
+  "BzQPM+": {
+    "defaultMessage": "Destination"
+  },
+  "Pxcfhu": {
+    "defaultMessage": "Non-pdf files will be ignored"
+  },
+  "fhwTpA": {
+    "defaultMessage": "Sources"
+  },
+  "p4N05H": {
+    "defaultMessage": "Upload"
+  },
+  "ppUeoo": {
+    "defaultMessage": "Drop pdf files here to upload them as sources"
   }
 }

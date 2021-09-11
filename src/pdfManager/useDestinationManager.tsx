@@ -15,7 +15,7 @@ const useDestinationManager = (getSource) => {
 
     const linkTag = document.createElement('a')
     linkTag.href = await destinationPdf.saveAsBase64({ dataUri: true })
-    linkTag.download = "created-with-m-pdf.pdf"
+    linkTag.download = "m-pdf.pdf"
     linkTag.click()
   }, [destination])
 

@@ -4,5 +4,35 @@
       "type": 0,
       "value": "Descargar"
     }
+  ],
+  "BzQPM+": [
+    {
+      "type": 0,
+      "value": "Destino"
+    }
+  ],
+  "Pxcfhu": [
+    {
+      "type": 0,
+      "value": "Se ignorarán archivos que no sean pdfs"
+    }
+  ],
+  "fhwTpA": [
+    {
+      "type": 0,
+      "value": "Fuentes"
+    }
+  ],
+  "p4N05H": [
+    {
+      "type": 0,
+      "value": "Subir"
+    }
+  ],
+  "ppUeoo": [
+    {
+      "type": 0,
+      "value": "Suelta aquí los pdfs para subirlos como fuentes"
+    }
   ]
 }

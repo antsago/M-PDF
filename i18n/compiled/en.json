@@ -4,5 +4,35 @@
       "type": 0,
       "value": "Download"
     }
+  ],
+  "BzQPM+": [
+    {
+      "type": 0,
+      "value": "Destination"
+    }
+  ],
+  "Pxcfhu": [
+    {
+      "type": 0,
+      "value": "Non-pdf files will be ignored"
+    }
+  ],
+  "fhwTpA": [
+    {
+      "type": 0,
+      "value": "Sources"
+    }
+  ],
+  "p4N05H": [
+    {
+      "type": 0,
+      "value": "Upload"
+    }
+  ],
+  "ppUeoo": [
+    {
+      "type": 0,
+      "value": "Drop pdf files here to upload them as sources"
+    }
   ]
 }
