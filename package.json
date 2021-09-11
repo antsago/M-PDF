@@ -4,7 +4,9 @@
     "start": "webpack serve --open",
     "build": "webpack --env isProd",
     "predeploy": "npm run build --silent",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "extract": "formatjs extract 'src/**/*.ts*' --out-file lang/extracted/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
+    "compile": "formatjs compile lang/extracted/es.json --ast --out-file lang/compiled/es.json"
   },
   "dependencies": {
     "@material-ui/core": "^4.12.3",
@@ -24,12 +26,14 @@
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
+    "@formatjs/cli": "^4.2.33",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
     "@types/react-dropzone": "^5.1.0",
     "@types/react-pdf": "^5.0.5",
     "@types/uuid": "^8.3.1",
     "babel-loader": "^8.2.2",
+    "babel-plugin-formatjs": "^10.3.8",
     "gh-pages": "^3.2.3",
     "html-webpack-plugin": "^5.3.2",
     "source-map-loader": "^3.0.0",

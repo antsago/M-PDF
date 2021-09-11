@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const { transform } = require('@formatjs/ts-transformer')
 
 module.exports = ({ isProd }) => {
   const base = {
@@ -30,6 +31,15 @@ module.exports = ({ isProd }) => {
               loader: "ts-loader",
               options: {
                 configFile: "tsconfig.json",
+                getCustomTransformers() {
+                  return {
+                    before: [
+                      transform({
+                        overrideIdFn: '[sha512:contenthash:base64:6]',
+                      }),
+                    ],
+                  }
+                },
               },
             },
           ],

@@ -1,6 +1,7 @@
 import React from "react"
 import { IntlProvider } from "react-intl"
 import { CssBaseline, ThemeProvider, createTheme, makeStyles } from "@material-ui/core"
+import lang from "../lang"
 import MainPage from './MainPage'
 import { TopBar } from './components'
 import { Provider } from './pdfManager'
@@ -25,18 +26,18 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const messages = {
-  myMessage: "Descargar",
-}
 
 const App = () => {
   const classes = useStyles()
+
+  const locale = "en"
+  const messages = lang[locale]
 
   return (
     <Provider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <IntlProvider locale="es" messages={messages} defaultLocale="en">
+        <IntlProvider locale={locale} messages={messages} defaultLocale="en">
           <div className={classes.root}>
             <TopBar />
             <MainPage />

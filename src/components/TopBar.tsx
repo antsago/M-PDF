@@ -23,7 +23,6 @@ const TopBar = () => {
         <Button onClick={triggerUpload}>Upload</Button>
         <Button onClick={downloadDestination}>
           <FormattedMessage
-            id="myMessage"
             defaultMessage="Download"
           />
         </Button>
