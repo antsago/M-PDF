@@ -37,7 +37,7 @@ const Destination = () => {
           file={getSource(destinationPage.sourceId).content}
           onLoadError={(error) => console.log(error)}
         >
-          <PDFPage page={destinationPage.sourcePage} sourceId={destinationPage.sourceId} isDestination>
+          <PDFPage page={destinationPage.sourcePage} sourceId={destinationPage.sourceId} destinationIndex={pageIndex}>
             <PageActionButton action={() => deletePage(pageIndex)} title={intl.formatMessage({ defaultMessage: "Delete page" })}>
               <DeleteIcon />
             </PageActionButton>

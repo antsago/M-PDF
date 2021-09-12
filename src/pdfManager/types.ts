@@ -12,7 +12,7 @@ export type AddSource = (newSource: Source) => void
 export type GetSource = (sourceId: string) => Source
 
 export type Destination = { sourceId: string, sourcePage: number }[]
-export type InsertPage = (page: number, source: Source) => Promise<void>
+export type InsertPage = (page: number, source: Source, insertIndex?: number) => Promise<void>
 export type DeletePage = (pageIndex: number) => void
 export type DownloadDestination = () => Promise<void>
 

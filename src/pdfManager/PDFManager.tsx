@@ -1,5 +1,5 @@
-import React, { createContext, useContext, createRef, useCallback } from "react"
-import { PDFContext, DropRef, TriggerUpload } from './types'
+import React, { createContext, useContext, createRef } from "react"
+import { PDFContext, DropRef } from './types'
 import useSourceManager from './useSourceManager'
 import useDestinationManager from './useDestinationManager'
 

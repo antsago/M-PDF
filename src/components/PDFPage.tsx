@@ -2,6 +2,7 @@ import React, { PropsWithChildren, useState } from "react"
 import { Page } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, alpha } from "@material-ui/core"
 import clsx from "clsx"
+import { usePdfManager } from "../pdfManager"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,13 +30,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-type Props = PropsWithChildren<{ page: number, sourceId: string, isDestination?: boolean }>
+type Props = PropsWithChildren<{ page: number, sourceId: string, destinationIndex?: number }>
 
-const PDFPage = ({ page, sourceId, isDestination, children }: Props) => {
+const PDFPage = ({ page, sourceId, destinationIndex, children }: Props) => {
   const classes = useStyles()
 
   const [isDragged, setIsDragged] = useState(false)
   const [isEntered, setIsEntered] = useState(false)
+
+  const { insertPage, getSource } = usePdfManager()
+
+  const isDestination = ![null, undefined].includes(destinationIndex)
 
   return (
     <div
@@ -46,7 +51,7 @@ const PDFPage = ({ page, sourceId, isDestination, children }: Props) => {
       })}
       draggable
       onDragStart={(e) => {
-        e.dataTransfer.dropEffect = "copy"
+        e.dataTransfer.dropEffect = isDestination ? "move" : "copy"
         e.dataTransfer.setData('page', String(page))
         e.dataTransfer.setData('sourceId', sourceId)
         setIsDragged(true)
@@ -59,6 +64,13 @@ const PDFPage = ({ page, sourceId, isDestination, children }: Props) => {
       onDragLeave={isDestination ? (e) => {
         e.preventDefault()
         setIsEntered(false)
+      } : undefined}
+      onDrop={isDestination ? (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        setIsEntered(false)
+        
+        insertPage(Number(e.dataTransfer.getData('page')), getSource(e.dataTransfer.getData('sourceId')), destinationIndex)
       } : undefined}
     >
       <Page

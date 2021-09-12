@@ -20,8 +20,16 @@ const useDestinationManager = (getSource) => {
   }, [destination])
 
   const insertPage = useCallback<InsertPage>(
-    async (page, sourceFile) =>
-      setDestination((prevDestination) => [...prevDestination, { sourceId: sourceFile.id, sourcePage: page }]),
+    async (page, sourceFile, insertIndex) => setDestination((prevDestination) => {
+      const newPage =  { sourceId: sourceFile.id, sourcePage: page }
+      if ([null, undefined].includes(insertIndex)) {
+        return [...prevDestination, newPage]
+      } else {
+        const newDestination = [...prevDestination]
+        newDestination.splice(insertIndex, 0, newPage)
+        return newDestination
+      }
+    }),
     [],
   )
 
