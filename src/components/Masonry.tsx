@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from "react"
 import { makeStyles } from "@material-ui/core"
+import clsx from "clsx"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,13 +12,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-type Props = PropsWithChildren<{}>
+type Props = PropsWithChildren<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>>
 
-const Masonry = ({ children }: Props) => {
+const Masonry = ({ children, className, ...other }: Props) => {
   const classes = useStyles()
 
   return (
-    <div className={classes.root}>
+    <div className={clsx(classes.root, className)} {...other}>
       {children}
     </div>
   )
