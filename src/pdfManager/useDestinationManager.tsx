@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { PDFDocument } from 'pdf-lib'
-import { InsertPage, Destination } from './types'
+import { InsertPage, Destination, DeletePage } from './types'
 
 const useDestinationManager = (getSource) => {
   const [destination, setDestination] = useState<Destination>([])
@@ -25,10 +25,21 @@ const useDestinationManager = (getSource) => {
     [],
   )
 
+  const deletePage = useCallback<DeletePage>(
+    async (pageIndex) =>
+      setDestination((prevDestination) => {
+        const newDestination = [...prevDestination]
+        newDestination.splice(pageIndex, 1)
+        return newDestination
+      }),
+    [],
+  )
+
   return {
     destination,
     downloadDestination,
     insertPage,
+    deletePage,
   }
 }
 

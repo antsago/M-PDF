@@ -12,7 +12,7 @@ export const Provider = ({ children }) => {
   const triggerUpload = () => dropRef?.current?.open()
 
   const { sources, addSource, getSource } = useSourceManager()
-  const { destination, insertPage, downloadDestination } = useDestinationManager(getSource)
+  const { destination, insertPage, deletePage, downloadDestination } = useDestinationManager(getSource)
   return (
     <pdfContext.Provider
       value={{
@@ -22,6 +22,7 @@ export const Provider = ({ children }) => {
         destination,
         downloadDestination,
         insertPage,
+        deletePage,
         dropRef,
         triggerUpload,
       }}

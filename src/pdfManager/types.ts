@@ -13,6 +13,7 @@ export type GetSource = (sourceId: string) => Source
 
 export type Destination = { sourceId: string, sourcePage: number }[]
 export type InsertPage = (page: number, source: Source) => Promise<void>
+export type DeletePage = (pageIndex: number) => void
 export type DownloadDestination = () => Promise<void>
 
 export type PDFContext = {
@@ -24,4 +25,5 @@ export type PDFContext = {
   destination: Destination,
   downloadDestination: DownloadDestination,
   insertPage: InsertPage,
+  deletePage: DeletePage,
 }
