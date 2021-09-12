@@ -1,12 +1,13 @@
 import React, { useCallback, useState } from "react"
+import { useIntl } from "react-intl"
 import { Document } from 'react-pdf/dist/esm/entry.webpack'
-import { makeStyles, Typography, IconButton } from "@material-ui/core"
-import { KeyboardArrowDown as SourceOpenIcon, KeyboardArrowRight as SourceClosedIcon, AddBox as AddBoxIcon } from "@material-ui/icons"
+import { makeStyles, Typography, IconButton, Tooltip } from "@material-ui/core"
+import { KeyboardArrowDown as SourceOpenIcon, KeyboardArrowRight as SourceClosedIcon, PlusOne as AddPageIcon, Add as AddAllIcon } from "@material-ui/icons"
 import { Source, InsertPage } from "../pdfManager"
 import PDFPage from "./PDFPage"
 import Masonry from "./Masonry"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   title: {
     display: "flex",
     alignItems: "center",
@@ -14,10 +15,18 @@ const useStyles = makeStyles((theme) => ({
   },
   isClosed: {
     display: "none",
-  }
+  },
 }))
 
-type Props = { file: Source, onInsert?: InsertPage }
+type Props = { file: Source, onInsert: InsertPage }
+
+const PageAction = ({ action, title, children }) => (
+  <IconButton color="secondary" onClick={action} size="small">
+    <Tooltip title={title}>
+      {children}
+    </Tooltip>
+  </IconButton>
+)
 
 const SourcePDF = ({ file, onInsert }: Props) => {
   const [isOpen, setIsOpen] = useState(true)
@@ -30,6 +39,7 @@ const SourcePDF = ({ file, onInsert }: Props) => {
   const toggleOpen = useCallback(() => setIsOpen(wasOpen => !wasOpen), [onInsert])
 
   const classes = useStyles(isOpen)
+  const intl = useIntl()
   
   if (!file) {
     return null
@@ -52,11 +62,12 @@ const SourcePDF = ({ file, onInsert }: Props) => {
         <Masonry>
           {pages?.map((page) => (
             <PDFPage key={page} page={page}>
-              {onInsert && (
-                <IconButton aria-label="Insert page" onClick={handleInsert(page)}>
-                  <AddBoxIcon />
-                </IconButton>
-              )}
+              <PageAction action={handleInsert(page)} title={intl.formatMessage({ defaultMessage: "Insert one page" })}>
+                <AddPageIcon />
+              </PageAction>
+              <PageAction action={handleInsert(page)} title={intl.formatMessage({ defaultMessage: "Insert all pages" })}>
+                <AddAllIcon />
+              </PageAction>
             </PDFPage>
           ))}
         </Masonry>

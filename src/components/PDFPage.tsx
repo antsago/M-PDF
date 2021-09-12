@@ -1,10 +1,20 @@
 import React, { PropsWithChildren } from "react"
 import { Page } from 'react-pdf/dist/esm/entry.webpack'
-import { makeStyles } from "@material-ui/core"
+import { makeStyles, alpha } from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    position: "relative"
+  },
   page: {
     margin: theme.spacing(1),
+  },
+  actions: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    background: alpha(theme.palette.common.black, 0.75),
+    borderRadius: theme.spacing(1),
   }
 }))
 
@@ -14,7 +24,7 @@ const PDFPage = ({ page, children }: Props) => {
   const classes = useStyles()
 
   return (
-    <div>
+    <div className={classes.root}>
       <Page
         className={classes.page}
         pageNumber={page+1}
@@ -23,7 +33,9 @@ const PDFPage = ({ page, children }: Props) => {
         renderInteractiveForms={false}
         renderTextLayer={false}
       />
-      {children}
+      <div className={classes.actions}>
+        {children}
+      </div>
     </div>
   )
 }
