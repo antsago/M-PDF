@@ -32,7 +32,6 @@ const TopBar = ({ locales, locale, setLocale }) => {
           <Tooltip title={intl.formatMessage({ defaultMessage: "Upload sources" })}>
             <UploadIcon />
           </Tooltip>
-          {/*  */}
         </IconButton>
         <IconButton onClick={downloadDestination}>
           <Tooltip title={intl.formatMessage({ defaultMessage: "Download destination" })}>

@@ -9,7 +9,7 @@ export const usePdfManager = () => useContext(pdfContext)
 
 export const Provider = ({ children }) => {
   const dropRef = createRef<DropRef>()
-  const triggerUpload = useCallback<TriggerUpload>(() => dropRef?.current?.open(), [])
+  const triggerUpload = () => dropRef?.current?.open()
 
   const { sources, addSource, getSource } = useSourceManager()
   const { destination, insertPage, downloadDestination } = useDestinationManager(getSource)
