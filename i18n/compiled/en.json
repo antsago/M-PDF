@@ -5,6 +5,12 @@
       "value": "Destination"
     }
   ],
+  "HunlE+": [
+    {
+      "type": 0,
+      "value": "Expand source"
+    }
+  ],
   "Pxcfhu": [
     {
       "type": 0,
@@ -51,12 +57,6 @@
     {
       "type": 0,
       "value": "Drop pdf files here to upload them as sources"
-    }
-  ],
-  "rCSmI9": [
-    {
-      "type": 0,
-      "value": "Expand source"
     }
   ],
   "suLyJ1": [

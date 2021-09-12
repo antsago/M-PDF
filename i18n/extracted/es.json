@@ -2,6 +2,9 @@
   "BzQPM+": {
     "defaultMessage": "Destino"
   },
+  "HunlE+": {
+    "defaultMessage": "Desplegar fuente"
+  },
   "Pxcfhu": {
     "defaultMessage": "Se ignorarán archivos que no sean pdfs"
   },
@@ -25,9 +28,6 @@
   },
   "ppUeoo": {
     "defaultMessage": "Suelta aquí los pdfs para subirlos como fuentes"
-  },
-  "rCSmI9": {
-    "defaultMessage": "Desplegar fuente"
   },
   "suLyJ1": {
     "defaultMessage": "Insertar una página"

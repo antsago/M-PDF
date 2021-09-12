@@ -2,6 +2,9 @@
   "BzQPM+": {
     "defaultMessage": "Destination"
   },
+  "HunlE+": {
+    "defaultMessage": "Expand source"
+  },
   "Pxcfhu": {
     "defaultMessage": "Non-pdf files will be ignored"
   },
@@ -25,9 +28,6 @@
   },
   "ppUeoo": {
     "defaultMessage": "Drop pdf files here to upload them as sources"
-  },
-  "rCSmI9": {
-    "defaultMessage": "Expand source"
   },
   "suLyJ1": {
     "defaultMessage": "Insert one page"
