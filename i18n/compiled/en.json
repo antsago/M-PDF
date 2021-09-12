@@ -1,10 +1,4 @@
 {
-  "5q3qC0": [
-    {
-      "type": 0,
-      "value": "Download"
-    }
-  ],
   "BzQPM+": [
     {
       "type": 0,
@@ -23,10 +17,22 @@
       "value": "Sources"
     }
   ],
-  "p4N05H": [
+  "fsueHP": [
     {
       "type": 0,
-      "value": "Upload"
+      "value": "Upload sources"
+    }
+  ],
+  "iDlc2M": [
+    {
+      "type": 0,
+      "value": "Download destination"
+    }
+  ],
+  "jOuyTp": [
+    {
+      "type": 0,
+      "value": "Change language"
     }
   ],
   "ppUeoo": [

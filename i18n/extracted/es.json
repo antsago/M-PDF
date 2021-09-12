@@ -1,7 +1,4 @@
 {
-  "5q3qC0": {
-    "defaultMessage": "Descargar"
-  },
   "BzQPM+": {
     "defaultMessage": "Destino"
   },
@@ -11,8 +8,14 @@
   "fhwTpA": {
     "defaultMessage": "Fuentes"
   },
-  "p4N05H": {
-    "defaultMessage": "Subir"
+  "fsueHP": {
+    "defaultMessage": "Subir fuentes"
+  },
+  "iDlc2M": {
+    "defaultMessage": "Descargar destino"
+  },
+  "jOuyTp": {
+    "defaultMessage": "Cambiar idioma"
   },
   "ppUeoo": {
     "defaultMessage": "Suelta aquí los pdfs para subirlos como fuentes"

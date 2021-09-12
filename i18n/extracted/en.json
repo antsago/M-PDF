@@ -1,7 +1,4 @@
 {
-  "5q3qC0": {
-    "defaultMessage": "Download"
-  },
   "BzQPM+": {
     "defaultMessage": "Destination"
   },
@@ -11,8 +8,14 @@
   "fhwTpA": {
     "defaultMessage": "Sources"
   },
-  "p4N05H": {
-    "defaultMessage": "Upload"
+  "fsueHP": {
+    "defaultMessage": "Upload sources"
+  },
+  "iDlc2M": {
+    "defaultMessage": "Download destination"
+  },
+  "jOuyTp": {
+    "defaultMessage": "Change language"
   },
   "ppUeoo": {
     "defaultMessage": "Drop pdf files here to upload them as sources"
