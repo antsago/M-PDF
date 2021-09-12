@@ -1,4 +1,10 @@
 {
+  "2OMYV8": [
+    {
+      "type": 0,
+      "value": "No sources selected. Drag the pdf files or use the upload button in the top right corner to add new sources."
+    }
+  ],
   "69th+V": [
     {
       "type": 0,
@@ -21,6 +27,12 @@
     {
       "type": 0,
       "value": "Non-pdf files will be ignored"
+    }
+  ],
+  "asiOwa": [
+    {
+      "type": 0,
+      "value": "No page added to destination. Use the plus buttons or drag the pages across to add them to the destination pdf."
     }
   ],
   "fhwTpA": [

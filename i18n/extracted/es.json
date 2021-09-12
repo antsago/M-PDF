@@ -1,4 +1,7 @@
 {
+  "2OMYV8": {
+    "defaultMessage": "Ninguna fuente seleccionada. Arrastre los archivos pdf o use el botón de subida en la parte superior derecha de la pantalla para añadir nuevas fuentes."
+  },
   "69th+V": {
     "defaultMessage": "Borrar página"
   },
@@ -10,6 +13,9 @@
   },
   "Pxcfhu": {
     "defaultMessage": "Se ignorarán archivos que no sean pdfs"
+  },
+  "asiOwa": {
+    "defaultMessage": "Ninguna página en destino. Use los botones en las fuentes or arraste las páginas para añadirlas al pdf de destino."
   },
   "fhwTpA": {
     "defaultMessage": "Fuentes"
