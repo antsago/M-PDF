@@ -14,6 +14,11 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     marginLeft: "-7px",
   },
+  titleText: {
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+  },
   isClosed: {
     display: "none",
   },
@@ -48,7 +53,9 @@ const SourcePDF = ({ file, onInsert }: Props) => {
         <IconButton size="small" aria-label={isOpen ? intl.formatMessage({ defaultMessage: "Collapse source" }) : intl.formatMessage({ defaultMessage: "Expand source" })} onClick={toggleOpen}>
           {isOpen ? <SourceOpenIcon /> : <SourceClosedIcon />}
         </IconButton>
-        <Typography>{file.name}</Typography>
+        <Typography component="h3" variant="body1" className={classes.titleText}>
+          {file.name}
+        </Typography>
         <IconButton size="small" onClick={handleInsertAll} className={classes.addIcon}>
           <Tooltip title={intl.formatMessage({ defaultMessage: "Insert all pages" })}>
             <AddAllIcon />
