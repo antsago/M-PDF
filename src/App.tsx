@@ -33,7 +33,7 @@ const locales = [
 
 const App = () => {
   const classes = useStyles()
-  const [locale, setLocale] = React.useState<string>("es")
+  const [locale, setLocale] = React.useState<string>("en")
 
   return (
     <Provider>

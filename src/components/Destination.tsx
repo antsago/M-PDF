@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useIntl } from "react-intl"
 import { Document } from 'react-pdf/dist/esm/entry.webpack'
 import { Typography, makeStyles } from "@material-ui/core"
@@ -9,6 +9,12 @@ import PDFPage from "./PDFPage"
 import PageActionButton from "./PageActionButton"
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "100%",
+    "& *": {
+      pointerEvents: "none",
+    },
+  },
   message: {
     margin: `0px auto`,
     padding: theme.spacing(2),
@@ -18,29 +24,48 @@ const useStyles = makeStyles((theme) => ({
 const Destination = () => {
   const intl = useIntl()
   const classes = useStyles()
-  const { destination, getSource, deletePage } = usePdfManager()
+  const { destination, getSource, deletePage, insertPage } = usePdfManager()
+
+  const [isEntered, setIsEntered] = useState(false)
 
   return (
-    <Masonry>
-      {destination?.map((destinationPage, pageIndex) => (
-        <Document
-          key={pageIndex}
-          file={getSource(destinationPage.sourceId).content}
-          onLoadError={(error) => console.log(error)}
-        >
-          <PDFPage page={destinationPage.sourcePage}>
-            <PageActionButton action={() => deletePage(pageIndex)} title={intl.formatMessage({ defaultMessage: "Delete page" })}>
-              <DeleteIcon />
-            </PageActionButton>
-          </PDFPage>
-        </Document>
-      ))}
-      {!destination?.length && (
-        <Typography component="p" variant="body2" align="center" className={classes.message}>
-          {intl.formatMessage({ defaultMessage: "No page added to destination. Use the plus buttons or drag the pages across to add them to the destination pdf." })}
-        </Typography>
-      )}
-    </Masonry>
+    <div
+      className={classes.root}
+      onDrop={(e) => {
+        e.preventDefault()
+        insertPage(Number(e.dataTransfer.getData("page")), getSource(e.dataTransfer.getData("sourceId")))
+      }}
+      onDragEnter={(e) => {
+        e.preventDefault()
+        setIsEntered(true)
+      }}
+      onDragLeave={(e) => {
+        e.preventDefault()
+        setIsEntered(false)
+      }}
+    >
+      {isEntered && "Here!"}
+      <Masonry>
+        {destination?.map((destinationPage, pageIndex) => (
+          <Document
+            key={pageIndex}
+            file={getSource(destinationPage.sourceId).content}
+            onLoadError={(error) => console.log(error)}
+          >
+            <PDFPage page={destinationPage.sourcePage} sourceId={destinationPage.sourceId}>
+              <PageActionButton action={() => deletePage(pageIndex)} title={intl.formatMessage({ defaultMessage: "Delete page" })}>
+                <DeleteIcon />
+              </PageActionButton>
+            </PDFPage>
+          </Document>
+        ))}
+        {!destination?.length && (
+          <Typography component="p" variant="body2" align="center" className={classes.message}>
+            {intl.formatMessage({ defaultMessage: "No page added to destination. Use the plus buttons or drag the pages across to add them to the destination pdf." })}
+          </Typography>
+        )}
+      </Masonry>
+    </div>
   )
 }
 

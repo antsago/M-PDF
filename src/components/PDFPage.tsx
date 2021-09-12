@@ -1,10 +1,15 @@
-import React, { PropsWithChildren } from "react"
+import React, { PropsWithChildren, useState } from "react"
 import { Page } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, alpha } from "@material-ui/core"
+import clsx from "clsx"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: "relative"
+    position: "relative",
+    cursor: "grab",
+  },
+  dragged: {
+    opacity: 0.25,
   },
   page: {
     margin: theme.spacing(1),
@@ -18,14 +23,26 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-type Props = PropsWithChildren<{ page: number }>
+type Props = PropsWithChildren<{ page: number, sourceId: string }>
 
-const PDFPage = ({ page, children }: Props) => {
+const PDFPage = ({ page, sourceId, children }: Props) => {
   const classes = useStyles()
 
+  const [isDragged, setIsDragged] = useState(false)
+
   return (
-    <div className={classes.root}>
-      <Page
+    <div
+      className={clsx({ [classes.root]: true, [classes.dragged]: isDragged })}
+      draggable
+      onDragStart={(e) => {
+        e.dataTransfer.dropEffect = "copy"
+        e.dataTransfer.setData('page', String(page))
+        e.dataTransfer.setData('sourceId', sourceId)
+        setIsDragged(true)
+      }}
+      onDragEnd={() => setIsDragged(false)}
+    >
+      <Page     
         className={classes.page}
         pageNumber={page+1}
         width={100}

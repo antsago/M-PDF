@@ -70,7 +70,7 @@ const SourcePDF = ({ file, onInsert }: Props) => {
       >
         <Masonry>
           {pages?.map((page) => (
-            <PDFPage key={page} page={page}>
+            <PDFPage key={page} page={page} sourceId={file.id}>
               <PageActionButton action={handleInsert(page)} title={intl.formatMessage({ defaultMessage: "Insert one page" })}>
                 <AddPageIcon />
               </PageActionButton>
