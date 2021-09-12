@@ -13,8 +13,6 @@ const Destination = () => {
         <Document
           key={pageIndex}
           file={getSource(destinationPage.sourceId).content}
-          onLoadError={(error) => console.log(error)}
-          onLoadSuccess={() => { /* Do nothing */ }}
         >
           <PDFPage page={destinationPage.sourcePage} />
         </Document>

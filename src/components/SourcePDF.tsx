@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react"
 import { useIntl } from "react-intl"
 import { Document } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, Typography, IconButton, Tooltip } from "@material-ui/core"
-import { KeyboardArrowDown as SourceOpenIcon, KeyboardArrowRight as SourceClosedIcon, PlusOne as AddPageIcon, Add as AddAllIcon } from "@material-ui/icons"
+import { KeyboardArrowDown as SourceOpenIcon, KeyboardArrowRight as SourceClosedIcon, PlusOne as AddPageIcon, AddBox as AddAllIcon } from "@material-ui/icons"
 import { Source, InsertPage } from "../pdfManager"
 import PDFPage from "./PDFPage"
 import Masonry from "./Masonry"
@@ -15,6 +15,9 @@ const useStyles = makeStyles(() => ({
   },
   isClosed: {
     display: "none",
+  },
+  addIcon: {
+    marginLeft: "auto",
   },
 }))
 
@@ -36,6 +39,7 @@ const SourcePDF = ({ file, onInsert }: Props) => {
     setPages(Array.from({ length: numPages }, (v, i) => i));
   }, [])
   const handleInsert = useCallback((page) => () => onInsert(page, file), [onInsert])
+  const handleInsertAll = useCallback(() => Promise.all(pages.map(page => onInsert(page, file))), [onInsert, pages])
   const toggleOpen = useCallback(() => setIsOpen(wasOpen => !wasOpen), [onInsert])
 
   const classes = useStyles(isOpen)
@@ -48,10 +52,15 @@ const SourcePDF = ({ file, onInsert }: Props) => {
   return (
     <div>
       <div className={classes.title}>
-        <IconButton size="small" aria-label={isOpen ? "Collapse source" : "Open source"} onClick={toggleOpen}>
+        <IconButton size="small" aria-label={isOpen ? intl.formatMessage({ defaultMessage: "Collapse source" }) : intl.formatMessage({ defaultMessage: "Expand source" })} onClick={toggleOpen}>
           {isOpen ? <SourceOpenIcon /> : <SourceClosedIcon />}
         </IconButton>
         <Typography>{file.name}</Typography>
+        <IconButton size="small" onClick={handleInsertAll} className={classes.addIcon}>
+          <Tooltip title={intl.formatMessage({ defaultMessage: "Insert all pages" })}>
+            <AddAllIcon />
+          </Tooltip>
+        </IconButton>
       </div>
       <Document
         className={isOpen ? "" : classes.isClosed}
@@ -64,9 +73,6 @@ const SourcePDF = ({ file, onInsert }: Props) => {
             <PDFPage key={page} page={page}>
               <PageAction action={handleInsert(page)} title={intl.formatMessage({ defaultMessage: "Insert one page" })}>
                 <AddPageIcon />
-              </PageAction>
-              <PageAction action={handleInsert(page)} title={intl.formatMessage({ defaultMessage: "Insert all pages" })}>
-                <AddAllIcon />
               </PageAction>
             </PDFPage>
           ))}

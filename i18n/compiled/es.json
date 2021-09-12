@@ -29,16 +29,40 @@
       "value": "Descargar destino"
     }
   ],
+  "ijdW6Q": [
+    {
+      "type": 0,
+      "value": "Insertar todas las páginas"
+    }
+  ],
   "jOuyTp": [
     {
       "type": 0,
       "value": "Cambiar idioma"
     }
   ],
+  "mfLhGG": [
+    {
+      "type": 0,
+      "value": "Colapsar fuente"
+    }
+  ],
   "ppUeoo": [
     {
       "type": 0,
       "value": "Suelta aquí los pdfs para subirlos como fuentes"
+    }
+  ],
+  "rCSmI9": [
+    {
+      "type": 0,
+      "value": "Desplegar fuente"
+    }
+  ],
+  "suLyJ1": [
+    {
+      "type": 0,
+      "value": "Insertar una página"
     }
   ]
 }

@@ -29,16 +29,40 @@
       "value": "Download destination"
     }
   ],
+  "ijdW6Q": [
+    {
+      "type": 0,
+      "value": "Insert all pages"
+    }
+  ],
   "jOuyTp": [
     {
       "type": 0,
       "value": "Change language"
     }
   ],
+  "mfLhGG": [
+    {
+      "type": 0,
+      "value": "Collapse source"
+    }
+  ],
   "ppUeoo": [
     {
       "type": 0,
       "value": "Drop pdf files here to upload them as sources"
+    }
+  ],
+  "rCSmI9": [
+    {
+      "type": 0,
+      "value": "Expand source"
+    }
+  ],
+  "suLyJ1": [
+    {
+      "type": 0,
+      "value": "Insert one page"
     }
   ]
 }
