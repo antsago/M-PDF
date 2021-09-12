@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "left",
+    alignContent: "flex-start",
     paddingLeft: theme.spacing(3),
   },
 }))

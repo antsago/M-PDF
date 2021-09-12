@@ -10,7 +10,7 @@ import PageActionButton from "./PageActionButton"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100%",
+    flexGrow: 1,
   },
   message: {
     margin: `0px auto`,

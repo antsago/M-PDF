@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
   },
   section: {
     padding: theme.spacing(2),
+    display: "flex",
+    flexDirection: "column",
     "&:not(:last-child)": {
       borderRight: `${theme.spacing(0.5)}px ${theme.palette.secondary.main} solid`,
     }
