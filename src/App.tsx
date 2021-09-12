@@ -1,7 +1,7 @@
 import React from "react"
 import { IntlProvider } from "react-intl"
 import { CssBaseline, ThemeProvider, createTheme, makeStyles } from "@material-ui/core"
-import lang from "../i18n"
+import i18n from "../i18n"
 import MainPage from './MainPage'
 import { TopBar } from './components'
 import { Provider } from './pdfManager'
@@ -26,20 +26,22 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
+const locales = [
+  { locale: "es", name: "Español" },
+  { locale: "en", name: "English" },
+]
 
 const App = () => {
   const classes = useStyles()
-
-  const locale = "es"
-  const messages = lang[locale]
+  const [locale, setLocale] = React.useState<string>("es")
 
   return (
     <Provider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <IntlProvider locale={locale} messages={messages} defaultLocale="en">
+        <IntlProvider locale={locale} messages={i18n[locale]} defaultLocale="en">
           <div className={classes.root}>
-            <TopBar />
+            <TopBar locales={locales} locale={locale} setLocale={setLocale} />
             <MainPage />
           </div>
         </IntlProvider>

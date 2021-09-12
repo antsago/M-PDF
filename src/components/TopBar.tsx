@@ -11,20 +11,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const locales = [
-  { locale: "es", name: "Español" },
-  { locale: "en", name: "English" },
-]
-
-const TopBar = () => {
+const TopBar = ({ locales, locale, setLocale }) => {
   const classes = useStyles()
   const intl = useIntl()
 
   const { downloadDestination, triggerUpload } = usePdfManager()
 
-  const [locale, setLocale] = React.useState<string>("es")
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => { setAnchorEl(event.currentTarget) }
+  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => { setAnchorEl(event.currentTarget) }
   const handleClose = () => { setAnchorEl(null) }
   const selectLocale = (l) => () => { setLocale(l); handleClose() }
 
@@ -46,7 +40,7 @@ const TopBar = () => {
           </Tooltip>
         </IconButton>
         <div>
-          <IconButton aria-controls="language-selector" aria-haspopup="true" onClick={handleClick}>
+          <IconButton aria-controls="language-selector" aria-haspopup="true" onClick={handleOpen}>
             <Tooltip title={intl.formatMessage({ defaultMessage: "Change language" })}>
               <LanguageIcon/>
             </Tooltip>
