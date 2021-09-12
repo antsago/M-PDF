@@ -6,6 +6,7 @@ import { KeyboardArrowDown as SourceOpenIcon, KeyboardArrowRight as SourceClosed
 import { Source, InsertPage } from "../pdfManager"
 import PDFPage from "./PDFPage"
 import Masonry from "./Masonry"
+import PageActionButton from "./PageActionButton"
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -22,14 +23,6 @@ const useStyles = makeStyles(() => ({
 }))
 
 type Props = { file: Source, onInsert: InsertPage }
-
-const PageAction = ({ action, title, children }) => (
-  <IconButton color="secondary" onClick={action} size="small">
-    <Tooltip title={title}>
-      {children}
-    </Tooltip>
-  </IconButton>
-)
 
 const SourcePDF = ({ file, onInsert }: Props) => {
   const [isOpen, setIsOpen] = useState(true)
@@ -71,9 +64,9 @@ const SourcePDF = ({ file, onInsert }: Props) => {
         <Masonry>
           {pages?.map((page) => (
             <PDFPage key={page} page={page}>
-              <PageAction action={handleInsert(page)} title={intl.formatMessage({ defaultMessage: "Insert one page" })}>
+              <PageActionButton action={handleInsert(page)} title={intl.formatMessage({ defaultMessage: "Insert one page" })}>
                 <AddPageIcon />
-              </PageAction>
+              </PageActionButton>
             </PDFPage>
           ))}
         </Masonry>
