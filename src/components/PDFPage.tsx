@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState } from "react"
+import React, { PropsWithChildren, useState, DragEvent } from "react"
 import { Page } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, alpha } from "@material-ui/core"
 import clsx from "clsx"
@@ -8,9 +8,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
     cursor: "grab",
-  },
-  dragged: {
-    opacity: 0.25,
   },
   draggedOver: {
     paddingLeft: theme.spacing(10),
@@ -27,43 +24,58 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-type Props = PropsWithChildren<{ page: PageType, onDrop?: (droppedPage: PageType) => void }>
+type Props = PropsWithChildren<{ page: PageType, draggedClassName: string, onDrop?: (droppedPage: PageType) => void }>
 
-const PDFPage = ({ page, onDrop, children }: Props) => {
-  const classes = useStyles()
+const pageIdKey = "page.id"
+const pageKey = "page"
+
+const PDFPage = ({ page, onDrop, draggedClassName, children }: Props) => {
+  const classes = useStyles(!!onDrop)
 
   const [isDragged, setIsDragged] = useState(false)
   const [isEntered, setIsEntered] = useState(0)
+
+  const isThisPage = (e) => "id" in page && e.dataTransfer.types.includes(page.id)
 
   return (
     <div
       className={clsx({
         [classes.root]: true,
-        [classes.dragged]: isDragged,
+        [draggedClassName]: isDragged,
         [classes.draggedOver]: isEntered,
       })}
       draggable
       onDragStart={(e) => {
         e.dataTransfer.dropEffect = onDrop ? "move" : "copy"
-        e.dataTransfer.setData('page', JSON.stringify(page))
+        e.dataTransfer.setData(pageKey, JSON.stringify(page))
+
+        if ("id" in page) {
+          e.dataTransfer.setData(page.id, "")
+        }
         setIsDragged(true)
       }}
       onDragEnd={() => setIsDragged(false)}
 
       onDragEnter={onDrop ? (e) => {
         e.preventDefault()
-        setIsEntered(prevCount => prevCount + 1)
+
+        if (!isThisPage(e)) {
+          setIsEntered(prevCount => prevCount + 1)
+        }
       } : undefined}
       onDragLeave={onDrop ? (e) => {
         e.preventDefault()
-        setIsEntered(prevCount => prevCount - 1)
+
+        if (!isThisPage(e)) {
+          setIsEntered(prevCount => prevCount - 1)
+        }
       } : undefined}
       onDrop={onDrop ? (e) => {
         e.preventDefault()
         e.stopPropagation()
         setIsEntered(0)
         
-        onDrop(JSON.parse(e.dataTransfer.getData('page')))
+        onDrop(JSON.parse(e.dataTransfer.getData(pageKey)))
       } : undefined}
     >
       <Page

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { useIntl } from "react-intl"
 import { Document } from 'react-pdf/dist/esm/entry.webpack'
 import { Typography, makeStyles } from "@material-ui/core"
@@ -15,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
   message: {
     margin: `0px auto`,
     padding: theme.spacing(2),
-  }
+  },
+  draggedPage: {
+    opacity: 0.25,
+  },
 }))
 
 const Destination = () => {
@@ -28,10 +31,7 @@ const Destination = () => {
       className={classes.root}
       onDrop={(e) => {
         e.preventDefault()
-        insertPage({
-          sourcePage: Number(e.dataTransfer.getData("page")),
-          sourceId: e.dataTransfer.getData("sourceId"),
-        })
+        insertPage(JSON.parse(e.dataTransfer.getData('page')))
       }}
     >
       {destination?.map((destinationPage, pageIndex) => (
@@ -42,11 +42,12 @@ const Destination = () => {
         >
           <PDFPage
             page={destinationPage}
+            draggedClassName={classes.draggedPage}
             onDrop={(droppedPage) => {
               insertPage(droppedPage, pageIndex)
             }}
           >
-            <PageActionButton action={() => deletePage(pageIndex)} title={intl.formatMessage({ defaultMessage: "Delete page" })}>
+            <PageActionButton action={() => deletePage(destinationPage.id)} title={intl.formatMessage({ defaultMessage: "Delete page" })}>
               <DeleteIcon />
             </PageActionButton>
           </PDFPage>

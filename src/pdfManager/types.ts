@@ -18,7 +18,7 @@ export type GetSource = (sourceId: string) => Source
 export type Destination = DestinationPage[]
 export type CreatePage = (seed: PageSeed) => DestinationPage
 export type InsertPage = (page: Page, insertIndex?: number) => Promise<void>
-export type DeletePage = (pageIndex: number) => void
+export type DeletePage = (pageId: string) => void
 export type DownloadDestination = () => Promise<void>
 
 export type PDFContext = {

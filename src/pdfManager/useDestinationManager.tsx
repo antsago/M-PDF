@@ -23,29 +23,26 @@ const useDestinationManager = (getSource) => {
   const createPage = useCallback<CreatePage>((sourcePage) => ({ ...sourcePage, id: uuid() }), [])
 
   const insertPage = useCallback<InsertPage>(
-    async (page, insertIndex) => {
-      const newPage = "id" in page ? page : createPage(page)
-
+    async (page, insertIndex) =>
       setDestination((prevDestination) => {
+        const isExistingPage = "id" in page
+        const newPage = isExistingPage ? page : createPage(page)
+        const newDestination = isExistingPage ? prevDestination.filter(p => p.id !== page.id) : [...prevDestination]
+
         if ([null, undefined].includes(insertIndex)) {
-          return [...prevDestination, newPage]
+          newDestination.push(newPage)
         } else {
-          const newDestination = [...prevDestination]
           newDestination.splice(insertIndex, 0, newPage)
-          return newDestination
         }
-      })
-    },
+
+        return newDestination
+      }),
     [],
    )
 
   const deletePage = useCallback<DeletePage>(
-    async (pageIndex) =>
-      setDestination((prevDestination) => {
-        const newDestination = [...prevDestination]
-        newDestination.splice(pageIndex, 1)
-        return newDestination
-      }),
+    async (pageId) =>
+      setDestination((prevDestination) => prevDestination.filter(p => p.id !== pageId)),
     [],
   )
 
