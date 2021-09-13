@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     cursor: "grab",
   },
+  dragged: {
+    opacity: 0.1,
+  },
   draggedOver: {
     paddingLeft: theme.spacing(10),
   },
@@ -24,12 +27,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-type Props = PropsWithChildren<{ page: PageType, draggedClassName: string, onDrop?: (droppedPage: PageType) => void }>
+type Props = PropsWithChildren<{ page: PageType, onDrop?: (droppedPage: PageType) => void }>
 
-const pageIdKey = "page.id"
 const pageKey = "page"
 
-const PDFPage = ({ page, onDrop, draggedClassName, children }: Props) => {
+const PDFPage = ({ page, onDrop, children }: Props) => {
   const classes = useStyles(!!onDrop)
 
   const [isDragged, setIsDragged] = useState(false)
@@ -41,7 +43,7 @@ const PDFPage = ({ page, onDrop, draggedClassName, children }: Props) => {
     <div
       className={clsx({
         [classes.root]: true,
-        [draggedClassName]: isDragged,
+        [classes.dragged]: isDragged,
         [classes.draggedOver]: isEntered,
       })}
       draggable
@@ -73,9 +75,11 @@ const PDFPage = ({ page, onDrop, draggedClassName, children }: Props) => {
       onDrop={onDrop ? (e) => {
         e.preventDefault()
         e.stopPropagation()
-        setIsEntered(0)
         
-        onDrop(JSON.parse(e.dataTransfer.getData(pageKey)))
+        if (!isThisPage(e)) {
+          setIsEntered(0)
+          onDrop(JSON.parse(e.dataTransfer.getData(pageKey)))
+        }
       } : undefined}
     >
       <Page

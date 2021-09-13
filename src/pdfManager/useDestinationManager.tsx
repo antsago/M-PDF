@@ -27,7 +27,7 @@ const useDestinationManager = (getSource) => {
       setDestination((prevDestination) => {
         const isExistingPage = "id" in page
         const newPage = isExistingPage ? page : createPage(page)
-        const newDestination = isExistingPage ? prevDestination.filter(p => p.id !== page.id) : [...prevDestination]
+        const newDestination = isExistingPage ? prevDestination.map(p => p.id !== page.id ? p : null) : [...prevDestination]
 
         if ([null, undefined].includes(insertIndex)) {
           newDestination.push(newPage)
@@ -35,7 +35,7 @@ const useDestinationManager = (getSource) => {
           newDestination.splice(insertIndex, 0, newPage)
         }
 
-        return newDestination
+        return newDestination.filter(p => p)
       }),
     [],
    )

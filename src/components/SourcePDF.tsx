@@ -25,9 +25,6 @@ const useStyles = makeStyles(() => ({
   addIcon: {
     marginLeft: "auto",
   },
-  draggedPage: {
-    opacity: 0.25,
-  }
 }))
 
 type Props = { file: Source, onInsert: InsertPage }
@@ -74,7 +71,7 @@ const SourcePDF = ({ file, onInsert }: Props) => {
       >
         <Masonry>
           {pages?.map((page) => (
-            <PDFPage key={page.sourcePage} page={page} draggedClassName={classes.draggedPage}>
+            <PDFPage key={page.sourcePage} page={page}>
               <PageActionButton 
                 action={handleInsert(page)}
                 title={intl.formatMessage({ defaultMessage: "Insert one page" })}

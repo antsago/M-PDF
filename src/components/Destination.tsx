@@ -16,9 +16,6 @@ const useStyles = makeStyles((theme) => ({
     margin: `0px auto`,
     padding: theme.spacing(2),
   },
-  draggedPage: {
-    opacity: 0.25,
-  },
 }))
 
 const Destination = () => {
@@ -42,7 +39,6 @@ const Destination = () => {
         >
           <PDFPage
             page={destinationPage}
-            draggedClassName={classes.draggedPage}
             onDrop={(droppedPage) => {
               insertPage(droppedPage, pageIndex)
             }}
