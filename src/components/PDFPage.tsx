@@ -8,9 +8,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: "relative",
     cursor: "grab",
-    "& *": {
-      pointerEvents: "none",
-    },
   },
   dragged: {
     opacity: 0.25,
@@ -36,7 +33,7 @@ const PDFPage = ({ page, onDrop, children }: Props) => {
   const classes = useStyles()
 
   const [isDragged, setIsDragged] = useState(false)
-  const [isEntered, setIsEntered] = useState(false)
+  const [isEntered, setIsEntered] = useState(0)
 
   return (
     <div
@@ -55,16 +52,16 @@ const PDFPage = ({ page, onDrop, children }: Props) => {
 
       onDragEnter={onDrop ? (e) => {
         e.preventDefault()
-        setIsEntered(true)
+        setIsEntered(prevCount => prevCount + 1)
       } : undefined}
       onDragLeave={onDrop ? (e) => {
         e.preventDefault()
-        setIsEntered(false)
+        setIsEntered(prevCount => prevCount - 1)
       } : undefined}
       onDrop={onDrop ? (e) => {
         e.preventDefault()
         e.stopPropagation()
-        setIsEntered(false)
+        setIsEntered(0)
         
         onDrop(JSON.parse(e.dataTransfer.getData('page')))
       } : undefined}
