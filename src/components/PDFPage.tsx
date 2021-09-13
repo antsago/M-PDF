@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useState } from "react"
 import { Page } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, alpha } from "@material-ui/core"
 import clsx from "clsx"
-import { usePdfManager } from "../pdfManager"
+import { Page as PageType } from "../pdfManager"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,17 +30,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-type Props = PropsWithChildren<{ page: number, sourceId: string, destinationIndex?: number }>
+type Props = PropsWithChildren<{ page: PageType, onDrop?: (droppedPage: PageType) => void }>
 
-const PDFPage = ({ page, sourceId, destinationIndex, children }: Props) => {
+const PDFPage = ({ page, onDrop, children }: Props) => {
   const classes = useStyles()
 
   const [isDragged, setIsDragged] = useState(false)
   const [isEntered, setIsEntered] = useState(false)
-
-  const { insertPage, getSource } = usePdfManager()
-
-  const isDestination = ![null, undefined].includes(destinationIndex)
 
   return (
     <div
@@ -51,31 +47,31 @@ const PDFPage = ({ page, sourceId, destinationIndex, children }: Props) => {
       })}
       draggable
       onDragStart={(e) => {
-        e.dataTransfer.dropEffect = isDestination ? "move" : "copy"
-        e.dataTransfer.setData('page', String(page))
-        e.dataTransfer.setData('sourceId', sourceId)
+        e.dataTransfer.dropEffect = onDrop ? "move" : "copy"
+        e.dataTransfer.setData('page', JSON.stringify(page))
         setIsDragged(true)
       }}
       onDragEnd={() => setIsDragged(false)}
-      onDragEnter={isDestination ? (e) => {
+
+      onDragEnter={onDrop ? (e) => {
         e.preventDefault()
         setIsEntered(true)
       } : undefined}
-      onDragLeave={isDestination ? (e) => {
+      onDragLeave={onDrop ? (e) => {
         e.preventDefault()
         setIsEntered(false)
       } : undefined}
-      onDrop={isDestination ? (e) => {
+      onDrop={onDrop ? (e) => {
         e.preventDefault()
         e.stopPropagation()
         setIsEntered(false)
         
-        insertPage(Number(e.dataTransfer.getData('page')), getSource(e.dataTransfer.getData('sourceId')), destinationIndex)
+        onDrop(JSON.parse(e.dataTransfer.getData('page')))
       } : undefined}
     >
       <Page
         className={classes.page}
-        pageNumber={page+1}
+        pageNumber={page.sourcePage+1}
         width={100}
         renderAnnotationLayer={false}
         renderInteractiveForms={false}

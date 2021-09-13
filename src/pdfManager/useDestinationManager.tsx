@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react"
 import { PDFDocument } from 'pdf-lib'
-import { InsertPage, Destination, DeletePage } from './types'
+import { CreatePage, InsertPage, Destination, DeletePage, DestinationPage } from './types'
+import { v4 as uuid } from "uuid"
 
 const useDestinationManager = (getSource) => {
   const [destination, setDestination] = useState<Destination>([])
@@ -19,19 +20,24 @@ const useDestinationManager = (getSource) => {
     linkTag.click()
   }, [destination])
 
+  const createPage = useCallback<CreatePage>((sourcePage) => ({ ...sourcePage, id: uuid() }), [])
+
   const insertPage = useCallback<InsertPage>(
-    async (page, sourceFile, insertIndex) => setDestination((prevDestination) => {
-      const newPage =  { sourceId: sourceFile.id, sourcePage: page }
-      if ([null, undefined].includes(insertIndex)) {
-        return [...prevDestination, newPage]
-      } else {
-        const newDestination = [...prevDestination]
-        newDestination.splice(insertIndex, 0, newPage)
-        return newDestination
-      }
-    }),
+    async (page, insertIndex) => {
+      const newPage = "id" in page ? page : createPage(page)
+
+      setDestination((prevDestination) => {
+        if ([null, undefined].includes(insertIndex)) {
+          return [...prevDestination, newPage]
+        } else {
+          const newDestination = [...prevDestination]
+          newDestination.splice(insertIndex, 0, newPage)
+          return newDestination
+        }
+      })
+    },
     [],
-  )
+   )
 
   const deletePage = useCallback<DeletePage>(
     async (pageIndex) =>

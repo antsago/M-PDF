@@ -8,11 +8,16 @@ export type Source = {
   content: string|ArrayBuffer,
   name: string,
 }
+export type DestinationPage = { sourceId: string, sourcePage: number, id: string }
+export type PageSeed = Omit<DestinationPage, "id">
+export type Page = DestinationPage | PageSeed
+
 export type AddSource = (newSource: Source) => void
 export type GetSource = (sourceId: string) => Source
 
-export type Destination = { sourceId: string, sourcePage: number }[]
-export type InsertPage = (page: number, source: Source, insertIndex?: number) => Promise<void>
+export type Destination = DestinationPage[]
+export type CreatePage = (seed: PageSeed) => DestinationPage
+export type InsertPage = (page: Page, insertIndex?: number) => Promise<void>
 export type DeletePage = (pageIndex: number) => void
 export type DownloadDestination = () => Promise<void>
 

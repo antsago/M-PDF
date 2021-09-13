@@ -28,16 +28,24 @@ const Destination = () => {
       className={classes.root}
       onDrop={(e) => {
         e.preventDefault()
-        insertPage(Number(e.dataTransfer.getData("page")), getSource(e.dataTransfer.getData("sourceId")))
+        insertPage({
+          sourcePage: Number(e.dataTransfer.getData("page")),
+          sourceId: e.dataTransfer.getData("sourceId"),
+        })
       }}
     >
       {destination?.map((destinationPage, pageIndex) => (
         <Document
-          key={pageIndex}
+          key={destinationPage.id}
           file={getSource(destinationPage.sourceId).content}
           onLoadError={(error) => console.log(error)}
         >
-          <PDFPage page={destinationPage.sourcePage} sourceId={destinationPage.sourceId} destinationIndex={pageIndex}>
+          <PDFPage
+            page={destinationPage}
+            onDrop={(droppedPage) => {
+              insertPage(droppedPage, pageIndex)
+            }}
+          >
             <PageActionButton action={() => deletePage(pageIndex)} title={intl.formatMessage({ defaultMessage: "Delete page" })}>
               <DeleteIcon />
             </PageActionButton>
