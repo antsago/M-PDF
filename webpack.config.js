@@ -46,6 +46,17 @@ module.exports = ({ isProd }) => {
           ],
           include: `${__dirname}/src`,
         },
+        {
+          test: /\.(png|jp(e*)g|svg|gif)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: 'images/[hash]-[name].[ext]',
+              },
+            },
+          ],
+        },
       ],
     },
     resolve: {

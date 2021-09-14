@@ -8,5 +8,6 @@
     "baseUrl": "src",
     "esModuleInterop": true,
     "sourceMap": true,
-  }
+  },
+  "include": ["./custom.d.ts", "./src"]
 }

@@ -8,11 +8,13 @@ import {
 } from "@material-ui/icons"
 import { useIntl } from "react-intl"
 import { usePdfManager } from "../pdfManager"
+import Logo from "./logo.svg"
 
 const useStyles = makeStyles((theme) => ({
-  title: {
-    marginRight: theme.spacing(2),
-    flexGrow: 1,
+  logo: {
+    width: "32px",
+    margin: `0px ${theme.spacing(1)}px`,
+    marginRight: "auto",
   },
 }))
 
@@ -30,9 +32,7 @@ const TopBar = ({ locales, locale, setLocale }) => {
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          M-PDF
-        </Typography>
+        <img src={Logo} alt="m-pdf" className={classes.logo} />
         <IconButton onClick={triggerUpload}>
           <Tooltip title={intl.formatMessage({ defaultMessage: "Upload sources" })}>
             <UploadIcon />
