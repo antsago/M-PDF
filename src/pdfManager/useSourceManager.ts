@@ -20,8 +20,15 @@ const useSourceManager = () => {
     (sourceId) => sourceDictionary.current[sourceId],
     [],
   )
+  const resetSources = useCallback(
+      () => {
+      sourceDictionary.current = {}
+      setSources([])
+    },
+    [],
+  )
 
-  return { sources, addSource, getSource }
+  return { sources, addSource, getSource, resetSources }
 }
 
 export default useSourceManager

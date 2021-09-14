@@ -1,4 +1,4 @@
-import React, { createContext, useContext, createRef } from "react"
+import React, { createContext, useContext, createRef, useCallback } from "react"
 import { PDFContext, DropRef } from './types'
 import useSourceManager from './useSourceManager'
 import useDestinationManager from './useDestinationManager'
@@ -11,8 +11,10 @@ export const Provider = ({ children }) => {
   const dropRef = createRef<DropRef>()
   const triggerUpload = () => dropRef?.current?.open()
 
-  const { sources, addSource, getSource } = useSourceManager()
-  const { destination, insertPage, deletePage, downloadDestination } = useDestinationManager(getSource)
+  const { sources, addSource, getSource, resetSources } = useSourceManager()
+  const { destination, insertPage, deletePage, downloadDestination, resetDestination } = useDestinationManager(getSource)
+  const reset = useCallback(() => { resetSources(); resetDestination() }, [])
+
   return (
     <pdfContext.Provider
       value={{
@@ -25,6 +27,7 @@ export const Provider = ({ children }) => {
         deletePage,
         dropRef,
         triggerUpload,
+        reset,
       }}
     >
       {children}

@@ -21,6 +21,8 @@ export type InsertPage = (page: Page, insertIndex?: number) => Promise<void>
 export type DeletePage = (pageId: string) => void
 export type DownloadDestination = () => Promise<void>
 
+export type Reset = () => void
+
 export type PDFContext = {
   dropRef: RefObject<DropRef>,
   triggerUpload: TriggerUpload,
@@ -31,4 +33,5 @@ export type PDFContext = {
   downloadDestination: DownloadDestination,
   insertPage: InsertPage,
   deletePage: DeletePage,
+  reset: Reset,
 }

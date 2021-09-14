@@ -46,11 +46,14 @@ const useDestinationManager = (getSource) => {
     [],
   )
 
+  const resetDestination = useCallback(() => setDestination([]), [])
+
   return {
     destination,
     downloadDestination,
     insertPage,
     deletePage,
+    resetDestination,
   }
 }
 
