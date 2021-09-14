@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { transform } = require('@formatjs/ts-transformer')
+const CopyPlugin = require("copy-webpack-plugin")
 
 module.exports = ({ isProd }) => {
   const base = {
@@ -72,6 +73,9 @@ module.exports = ({ isProd }) => {
       new HtmlWebpackPlugin({
         template: "./src/index.html",
       }),
+      new CopyPlugin({
+        patterns: ["public"],
+      }),
     ],
   }
 
@@ -82,7 +86,7 @@ module.exports = ({ isProd }) => {
 
     output: {
       ...base.output,
-      publicPath: "https://antsago.github.io/m-pdf",
+      publicPath: "/m-pdf/",
     }
   }
 
