@@ -1,8 +1,9 @@
-import React, { PropsWithChildren, useState, DragEvent } from "react"
+import React, { PropsWithChildren } from "react"
 import { Page } from 'react-pdf/dist/esm/entry.webpack'
 import { makeStyles, alpha } from "@material-ui/core"
 import clsx from "clsx"
 import { Page as PageType } from "../pdfManager"
+import { usePageDrag, usePageDrop } from "./usePageDaD"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,15 +30,11 @@ const useStyles = makeStyles((theme) => ({
 
 type Props = PropsWithChildren<{ page: PageType, onDrop?: (droppedPage: PageType) => void }>
 
-const pageKey = "page"
-
 const PDFPage = ({ page, onDrop, children }: Props) => {
   const classes = useStyles(!!onDrop)
 
-  const [isDragged, setIsDragged] = useState(false)
-  const [isEntered, setIsEntered] = useState(0)
-
-  const isThisPage = (e) => "id" in page && e.dataTransfer.types.includes(page.id)
+  const { isDragged, draggableProps } = usePageDrag(page, !!onDrop)
+  const { isEntered, droppableProps } = usePageDrop(onDrop, "id" in page && page.id)
 
   return (
     <div
@@ -46,41 +43,8 @@ const PDFPage = ({ page, onDrop, children }: Props) => {
         [classes.dragged]: isDragged,
         [classes.draggedOver]: isEntered,
       })}
-      draggable
-      onDragStart={(e) => {
-        e.dataTransfer.dropEffect = onDrop ? "move" : "copy"
-        e.dataTransfer.setData(pageKey, JSON.stringify(page))
-
-        if ("id" in page) {
-          e.dataTransfer.setData(page.id, "")
-        }
-        setIsDragged(true)
-      }}
-      onDragEnd={() => setIsDragged(false)}
-
-      onDragEnter={onDrop ? (e) => {
-        e.preventDefault()
-
-        if (!isThisPage(e)) {
-          setIsEntered(prevCount => prevCount + 1)
-        }
-      } : undefined}
-      onDragLeave={onDrop ? (e) => {
-        e.preventDefault()
-
-        if (!isThisPage(e)) {
-          setIsEntered(prevCount => prevCount - 1)
-        }
-      } : undefined}
-      onDrop={onDrop ? (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        
-        if (!isThisPage(e)) {
-          setIsEntered(0)
-          onDrop(JSON.parse(e.dataTransfer.getData(pageKey)))
-        }
-      } : undefined}
+      {...draggableProps}
+      {...droppableProps}
     >
       <Page
         className={classes.page}

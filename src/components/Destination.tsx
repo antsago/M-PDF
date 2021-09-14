@@ -7,6 +7,7 @@ import { usePdfManager } from "../pdfManager"
 import Masonry from "./Masonry"
 import PDFPage from "./PDFPage"
 import PageActionButton from "./PageActionButton"
+import { usePageDrop } from "./usePageDaD"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,15 +22,14 @@ const useStyles = makeStyles((theme) => ({
 const Destination = () => {
   const intl = useIntl()
   const classes = useStyles()
+
   const { destination, getSource, deletePage, insertPage } = usePdfManager()
+  const { droppableProps } = usePageDrop(insertPage)
 
   return (
     <Masonry
       className={classes.root}
-      onDrop={(e) => {
-        e.preventDefault()
-        insertPage(JSON.parse(e.dataTransfer.getData('page')))
-      }}
+      {...droppableProps}
     >
       {destination?.map((destinationPage, pageIndex) => (
         <Document
@@ -39,9 +39,7 @@ const Destination = () => {
         >
           <PDFPage
             page={destinationPage}
-            onDrop={(droppedPage) => {
-              insertPage(droppedPage, pageIndex)
-            }}
+            onDrop={(droppedPage) => insertPage(droppedPage, pageIndex)}
           >
             <PageActionButton action={() => deletePage(destinationPage.id)} title={intl.formatMessage({ defaultMessage: "Delete page" })}>
               <DeleteIcon />
