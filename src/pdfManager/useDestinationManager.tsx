@@ -8,11 +8,12 @@ const useDestinationManager = (getSource) => {
 
   const downloadDestination = useCallback(async () => {
     const destinationPdf = await PDFDocument.create()
-    await Promise.all(destination.map(async (pageConfig, pageIndex) => {
+    for (const [pageIndex, pageConfig] of destination.entries()) {
       const sourcePdf = await PDFDocument.load(getSource(pageConfig.sourceId).content)
       const [copiedPage] = await destinationPdf.copyPages(sourcePdf, [pageConfig.sourcePage])
       destinationPdf.insertPage(pageIndex, copiedPage)
-    }))
+
+    }
 
     const linkTag = document.createElement('a')
     linkTag.href = await destinationPdf.saveAsBase64({ dataUri: true })
